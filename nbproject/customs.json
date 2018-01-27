@@ -1,0 +1,11 @@
+{
+    "elements": {},
+    "attributes": {
+        "alt": {
+            "context": "select"
+        },
+        "value": {
+            "context": "label"
+        }
+    }
+}

@@ -1,0 +1,141 @@
+@media only screen and (max-width: 667px) {
+    body {
+        background-color: lightblue;
+    }
+}
+.container{
+	 text-align: left;
+	 /* margin: 0; */
+	 /* padding: 0; */
+	 /* margin: 0 auto; */
+/*	 font-family:*/
+         /*"Trebuchet MS","Myriad Pro",Arial	,sans-serif;*/
+	 width:100%;
+	 height:100%;
+	 
+}
+ul {
+    list-style-type: none;
+}
+ul li {
+	    margin: 0% 0% 3% 0%;
+	
+}	
+h1{
+	font-size: 18px;
+	color: rgb(6, 106, 117);
+	/*padding: 2px 0 10px 0; */
+	font-family: 'FranchiseRegular','Arial Narrow',Arial,sans-serif;
+	font-weight: bold;
+	text-align: center;
+	/*padding-bottom: 30px; */
+	background: -webkit-repeating-linear-gradient(-45deg, 
+	rgb(18, 83, 93) , 
+	rgb(18, 83, 93) 20px, 
+	rgb(64, 111, 118) 20px, 
+	rgb(64, 111, 118) 40px, 
+	rgb(18, 83, 93) 40px);
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+}
+h2{
+	
+	color: rgb(6, 106, 117);
+
+	background: -webkit-repeating-linear-gradient(-45deg, 
+	rgb(18, 83, 93) , 
+	rgb(18, 83, 93) 20px, 
+	rgb(64, 111, 118) 20px, 
+	rgb(64, 111, 118) 40px, 
+	rgb(18, 83, 93) 40px);
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+}
+h3{
+	font-size:14px;
+	color: rgb(6, 106, 117);
+
+	background: -webkit-repeating-linear-gradient(-45deg, 
+	rgb(18, 83, 93) , 
+	rgb(18, 83, 93) 20px, 
+	rgb(64, 111, 118) 20px, 
+	rgb(64, 111, 118) 40px, 
+	rgb(18, 83, 93) 40px);
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+}
+.box1{
+	float:left;
+	width:47.5%;
+	height:50%;
+	background-color:#CEF6F5;
+	border-radius:2%;
+	border: 1px solid gray;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+	border-color:#328e8c;
+	
+}
+.box1 input[type="text"]{
+	   width: 100%;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px #ddd;
+    border-radius: 4px;
+}
+.box2{
+	float:left;
+	width:47.5%;
+	height:50%;
+	background-color:#CEF6F5;
+	border-radius:2%;
+	border: 1px solid gray;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+	border-color:#328e8c;
+}
+.box2 select.form-control {
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px #ddd;
+    border-radius: 4px;
+}
+.box2 button{
+	WIDth:25%;
+	height:10%;
+	background-color: #83aacc;
+    border: none;
+	border-radius:8%;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 9% 0% -3.6% 0%;
+    cursor: pointer;
+}
+.box3{
+	float:left;
+	width:100%;
+	height:50%;
+	background-color:#CEF6F5;
+	border: 1px solid gray;
+	border-radius:2%;
+	}
+.box3 table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.box3 table td, th {
+    border: 1px solid #FFFFFF;
+    text-align: left;
+    padding: 8px;
+}
+
+.box3 table tr:nth-child(even) {
+    background-color: #FFFFFF;
+}
