@@ -2,16 +2,45 @@ package Model;
 
 public class ClienteJuridico extends Pessoa {
 
-    private Pessoa pessoa;
+//    private Pessoa pessoa;
+    
+    private int id;
 
     private String cnpj;
 
     private String ie;
 
-    
     private String razao_social;
 
     private Login login;
+
+//    public Login getLogin() {
+//        return login;
+//    }
+//
+//    public void setLogin(Login login) {
+//        this.login = login;
+//    }
+
+//    public void add_pessoa(Pessoa pessoa) {
+//
+//    }
+
+//    public void setPessoa(Pessoa pessoa) {
+//
+//    }
+
+//    public Pessoa getPessoa() {
+//        return pessoa;
+//    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Login getLogin() {
         return login;
@@ -21,18 +50,8 @@ public class ClienteJuridico extends Pessoa {
         this.login = login;
     }
 
-    public void add_pessoa(Pessoa pessoa) {
-
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
+    
+    
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
