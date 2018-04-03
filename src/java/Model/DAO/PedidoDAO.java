@@ -5,11 +5,12 @@
  */
 package Model.DAO;
 
-import Control.CarrinhoDeCompra;
+import Model.CarrinhoDeCompra;
 import Model.ItemDeCompra;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -17,18 +18,19 @@ import java.sql.ResultSet;
  */
 public class PedidoDAO {
 
-    private static final String INSERTPED = "INSERT INTO pedido(id, data_pedido, valor_total, modopag) VALUES (DEFAULT, CURRENT_TIMESTAMP, ?, ?) returning id";
+    private static final String INSERTPED = "INSERT INTO pedido(id, data_pedido, valor_total, status) VALUES (DEFAULT, CURRENT_TIMESTAMP, ?, ?) returning id";
     private static final String INSERTITEM = "INSERT INTO public.itempedido(id_pedido, codigo_produto, quantidade, valor_unitario) VALUES (?, ?, ?, ?)";
     private static final String BAIXAESTOQUE = "UPDATE produto SET estoque = (SELECT estoque FROM produto WHERE id = ?) - ? where id = ?";
+    private static final String FECHAPED = "UPDATE pedido SET status = ? WHERE id = ?";
 
-    public boolean gravaPedidos(CarrinhoDeCompra carrinho, int modo) {
+    public int gravaPedidos(CarrinhoDeCompra carrinho) {
         Connection conexao = null;
         PreparedStatement pstmt = null;
         try {
             conexao = ConectaBanco.getConexao();
             pstmt = conexao.prepareStatement(INSERTPED);
             pstmt.setDouble(1, carrinho.getTotal());
-            pstmt.setInt(2, modo);
+            pstmt.setString(2, "EM_ABERTO");
             ResultSet rs = pstmt.executeQuery();
             rs.next();
             int idPedido = rs.getInt("id");
@@ -51,10 +53,27 @@ public class PedidoDAO {
                 pstmt.close();
                 conexao.close();
             }
-            return true;
+            return idPedido;
         } catch (Exception e) {
-            return false;
+            return 0;
         }
 
+    }
+
+    public void fechaPedido(int idPedido) {
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        try {
+            conexao = ConectaBanco.getConexao();
+            pstmt = conexao.prepareStatement(FECHAPED);
+            pstmt.setString(1, "FECHADO");
+            pstmt.setInt(2, idPedido);
+            pstmt.execute();
+            pstmt.close();
+            conexao.close();
+        } catch (SQLException e) {
+            System.out.println("NÃO PASSOU");
+        }
+        System.out.println("PASSOU");
     }
 }
