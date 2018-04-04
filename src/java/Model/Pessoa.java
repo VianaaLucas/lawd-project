@@ -1,14 +1,11 @@
 package Model;
 
-import java.sql.Date;
-
-
-public class Pessoa  {
+public class Pessoa {
 
     private String nome;
 
     private String telefone;
-    
+
     private String celular;
 
     private String email;
@@ -54,10 +51,4 @@ public class Pessoa  {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-    
-   public Pessoa (){
-       
-   }
-   
-   
 }

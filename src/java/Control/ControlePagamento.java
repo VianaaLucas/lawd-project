@@ -8,6 +8,7 @@ package Control;
 import Model.CarrinhoDeCompra;
 import Model.DAO.PagamentoDAO;
 import Model.Pagamento;
+import Model.Produto;
 import Model.TipoPagamento;
 import static Model.TipoPagamento.CARTAO_CREDITO;
 import static Model.TipoPagamento.CARTAO_DEBITO;
@@ -45,7 +46,22 @@ public class ControlePagamento extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String acao = request.getParameter("acao");
+        if (acao.equals("removePagamento")) {
+            int id = 0;
+            id = Integer.parseInt(request.getParameter("idProduto"));
+            //recupera a sessão pertencente ao request
+            HttpSession sessao = request.getSession();
+            //recupera um carrinho de produtos da sessão
+            CarrinhoDeCompra carrinho = (CarrinhoDeCompra) sessao.getAttribute("carrinho");
+            //recupera o id do produto
+            int idProduto = Integer.parseInt(request.getParameter("idProduto"));
+            Pagamento pagamento = new Pagamento();
+            pagamento.setId(id);
+            carrinho.removerPagamento(pagamento);
+            //carrega a pagina do carrinho de compras
+            request.getRequestDispatcher("/pagamento.jsp").forward(request, response);
+        }
     }
 
     @Override
@@ -60,11 +76,15 @@ public class ControlePagamento extends HttpServlet {
             pagamento.setQuantia(Double.parseDouble(request.getParameter("valorRecebido")));
 
             PagamentoDAO pagamentoDAO = new PagamentoDAO();
-            pagamentoDAO.gravarPagamento(pagamento);
-            CarrinhoDeCompra carrinho = (CarrinhoDeCompra) sessao.getAttribute("carrinho");
-            carrinho.addPagamento(pagamento);
-            carrinho.calculaTotalPago();
-            request.getRequestDispatcher("/pagamento.jsp").forward(request, response);
+            int idPag = pagamentoDAO.gravarPagamento(pagamento);
+            if (idPag != 0) {
+                pagamento.setId(idPag);
+                CarrinhoDeCompra carrinho = (CarrinhoDeCompra) sessao.getAttribute("carrinho");
+                carrinho.addPagamento(pagamento);
+                carrinho.calculaTotalPago();
+                request.getRequestDispatcher("/pagamento.jsp").forward(request, response);
+            }
+
         }
 
     }

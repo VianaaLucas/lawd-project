@@ -14,26 +14,6 @@ public class ClienteJuridico extends Pessoa {
 
     private Login login;
 
-//    public Login getLogin() {
-//        return login;
-//    }
-//
-//    public void setLogin(Login login) {
-//        this.login = login;
-//    }
-
-//    public void add_pessoa(Pessoa pessoa) {
-//
-//    }
-
-//    public void setPessoa(Pessoa pessoa) {
-//
-//    }
-
-//    public Pessoa getPessoa() {
-//        return pessoa;
-//    }
-
     public int getId() {
         return id;
     }

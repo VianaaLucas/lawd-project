@@ -44,6 +44,10 @@
         <servlet-name>ControleCarrinho</servlet-name>
         <servlet-class>Control.ControleCarrinho</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControlePagamento</servlet-name>
+        <servlet-class>Control.ControlePagamento</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>
         <url-pattern>/ServletLogin</url-pattern>
@@ -88,6 +92,10 @@
         <servlet-name>ControleCarrinho</servlet-name>
         <url-pattern>/ControleCarrinho</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControlePagamento</servlet-name>
+        <url-pattern>/ControlePagamento</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             60
@@ -105,12 +113,22 @@
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
     <filter>
+        <filter-name>AcessoVendedor</filter-name>
+        <filter-class>Control.AcessoVendedor</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AcessoVendedor</filter-name>
+        <url-pattern>/home.jsp</url-pattern>
+        <url-pattern>/pdv.jsp</url-pattern>
+        <url-pattern>/produtosConsultar.html</url-pattern>
+        <url-pattern>/produtosHome.html</url-pattern>
+    </filter-mapping>
+    <filter>
         <filter-name>AcessoLogado</filter-name>
         <filter-class>Control.AcessoLogado</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>AcessoLogado</filter-name>
-        <url-pattern>/carrinho.jsp</url-pattern>
         <url-pattern>/categoriaAlterar.html</url-pattern>
         <url-pattern>/categoriaCadastrar.html</url-pattern>
         <url-pattern>/categoriaConsultar.jsp</url-pattern>

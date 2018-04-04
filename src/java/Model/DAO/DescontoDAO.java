@@ -39,7 +39,7 @@ public class DescontoDAO {
         Connection conexao = null;
         try {
             conexao = ConectaBanco.getConexao();
-            PreparedStatement stmt = conexao.prepareStatement("select * from desconto where categoria = ?");
+            PreparedStatement stmt = conexao.prepareStatement("select * from desconto where categoria = ? and ativo = true");
             stmt.setInt(1, cat);
             ResultSet resultado = stmt.executeQuery();
             Double precofinal = 0.0;

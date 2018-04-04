@@ -1,5 +1,6 @@
  package Control;
 
+import Model.CarrinhoDeCompra;
 import Model.ItemDeCompra;
 import Model.DAO.PedidoDAO;
 import Model.DAO.ProdutoDAO;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
  * @author lucas
  */
 public class ControleCarrinho extends HttpServlet {
@@ -140,8 +140,8 @@ public class ControleCarrinho extends HttpServlet {
                     carrinho.addNovoItem(novoItem);
                 }
             }
-            //carrega a pagina do carrinho de compras
             request.getRequestDispatcher("/pdv.jsp").forward(request, response);
+            //carrega a pagina do carrinho de compras
         } else if (botao.equals("CANCELAR")) {
             //recupera a sessão pertencente ao request
             HttpSession sessao = request.getSession();
@@ -153,9 +153,11 @@ public class ControleCarrinho extends HttpServlet {
             HttpSession sessao = request.getSession();
             CarrinhoDeCompra carrinho = (CarrinhoDeCompra) sessao.getAttribute("carrinho");
             PedidoDAO pedido = new PedidoDAO();
-            if (pedido.gravaPedidos(carrinho, Integer.parseInt(request.getParameter("modopag"))) == true) {
-                sessao.removeAttribute("carrinho");
-                response.sendRedirect("pdv.jsp");
+            int idPedido = 0;
+            idPedido = pedido.gravaPedidos(carrinho);
+            if (idPedido > 0) {
+                sessao.setAttribute("idPedido", idPedido);
+                request.getRequestDispatcher("/pagamento.jsp").forward(request, response);
             }
         } else if (botao.equals("ENCERRAR")) {
             //encerra a sessão e abre a pagina home
@@ -163,6 +165,17 @@ public class ControleCarrinho extends HttpServlet {
             CarrinhoDeCompra carrinho = (CarrinhoDeCompra) sessao.getAttribute("carrinho");
             sessao.removeAttribute("carrinho");
             response.sendRedirect("home.jsp");
+            
+        } else if (botao.equals("FINALIZARPEDIDO")) {
+            HttpSession sessao = request.getSession();
+            PedidoDAO pedido = new PedidoDAO();
+            int idPedido = (int) sessao.getAttribute("idPedido");
+            pedido.fechaPedido(idPedido);
+            sessao.removeAttribute("carrinho");
+            sessao.removeAttribute("idPedido");
+            response.sendRedirect("pdv.jsp");
+            
+            
         }
     }
 

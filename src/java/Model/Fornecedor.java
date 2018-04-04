@@ -4,8 +4,6 @@ public class Fornecedor extends Pessoa {
 
     private int id;
 
-    private Pessoa pessoa;
-
     private String cnpj;
 
     private String ie;
@@ -18,14 +16,6 @@ public class Fornecedor extends Pessoa {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
 
     public String getCnpj() {

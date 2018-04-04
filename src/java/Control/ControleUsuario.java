@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import Model.Usuario;
 import Model.DAO.loginUsuarioDAO;
 import Model.loginPerfilDeAcesso;
-import javax.servlet.RequestDispatcher;
 
 /**
  *
@@ -32,10 +31,11 @@ public class ControleUsuario extends HttpServlet {
                 usuario.setSenha(request.getParameter("txtSenha"));
                 String perfil = request.getParameter("optPerfil");
                 if (perfil.equalsIgnoreCase("administrador")) {
-                    usuario.setPerfil(loginPerfilDeAcesso.ADMINISTRADOR);
-                } else {
+                    usuario.setPerfil(loginPerfilDeAcesso.GERENTE);
+                } else if (perfil.equalsIgnoreCase("vendedor")) {
                     usuario.setPerfil(loginPerfilDeAcesso.VENDEDOR);
-
+                } else if (perfil.equalsIgnoreCase("estoquista")) {
+                    usuario.setPerfil(loginPerfilDeAcesso.ESTOQUISTA);
                 }
                 loginUsuarioDAO usuarioDAO = new loginUsuarioDAO();
                 usuarioDAO.cadastraNovoUsuario(usuario);

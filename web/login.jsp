@@ -40,6 +40,7 @@
                             <form  action="ControleAcesso" autocomplete="on" method = "POST"> 
                                 <h1>Log in</h1> 
                                 <p> 
+
                                     <label for="username" class="uname" data-icon="u" > Digite seu usuário </label>
                                     <input id="txtUsuario" name="txtUsuario" required="required" type="text" placeholder="L0012345"/>
                                 </p>

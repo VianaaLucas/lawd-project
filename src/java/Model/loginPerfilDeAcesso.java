@@ -11,6 +11,8 @@ package Model;
  */
 public enum loginPerfilDeAcesso {
     VENDEDOR,
+    GERENTE,
+    ESTOQUISTA,
     ADMINISTRADOR;
     
 }
