@@ -8,6 +8,7 @@ package Control;
 import Model.CarrinhoDeCompra;
 import Model.DAO.PagamentoDAO;
 import Model.Pagamento;
+
 import Model.Produto;
 import Model.TipoPagamento;
 import static Model.TipoPagamento.CARTAO_CREDITO;
@@ -84,9 +85,7 @@ public class ControlePagamento extends HttpServlet {
                 carrinho.calculaTotalPago();
                 request.getRequestDispatcher("/pagamento.jsp").forward(request, response);
             }
-
         }
-
     }
 
     @Override
