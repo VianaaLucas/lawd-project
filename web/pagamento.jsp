@@ -77,7 +77,6 @@
                                 //recupera os produtos do carrinho da sessao
                                 if (carrinho != null) {
                                     if (carrinho.getPagamentos() != null) {
-
                                         for (Pagamento pagamento : carrinho.getPagamentos()) {
                             %>
                         </thead>
