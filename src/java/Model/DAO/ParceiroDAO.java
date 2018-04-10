@@ -98,7 +98,7 @@ public class ParceiroDAO {
 
             Connection conexao = ConectaBanco.getConexao();
 
-            PreparedStatement stmt = conexao.prepareStatement("INSERT INTO fornecedor (nome, telefone, celular, email, cep, numero, complemento, rua, cidade, estado, cnpj, ie, razao_social) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            PreparedStatement stmt = conexao.prepareStatement("INSERT INTO fornecedor (nome, telefone, celular, email, cep, numero, complemento, rua, cidade, estado, cnpj, ie, razao_social, pedido_minimo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             stmt.setString(1, fornecedor.getNome());
             stmt.setString(2, fornecedor.getTelefone());
             stmt.setString(3, fornecedor.getCelular());
@@ -112,6 +112,7 @@ public class ParceiroDAO {
             stmt.setString(11, fornecedor.getCnpj());
             stmt.setString(12, fornecedor.getIe());
             stmt.setString(13, fornecedor.getRazao_social());
+            stmt.setDouble(14, fornecedor.getPedido_minimo());
             stmt.execute();
             conexao.close();
 

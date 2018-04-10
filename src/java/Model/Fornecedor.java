@@ -10,6 +10,16 @@ public class Fornecedor extends Pessoa {
 
     private String razao_social;
 
+    private double pedido_minimo;
+
+    public double getPedido_minimo() {
+        return pedido_minimo;
+    }
+
+    public void setPedido_minimo(double pedido_minimo) {
+        this.pedido_minimo = pedido_minimo;
+    }
+    
     public int getId() {
         return id;
     }
