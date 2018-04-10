@@ -11,6 +11,10 @@ public class Produto {
     private double preco_custo;
 
     private double preco_venda;
+    
+    private int qtdminima;
+    
+    private int qtdcompra;
 
     private int quantidade_estoque;
 
@@ -20,6 +24,22 @@ public class Produto {
 
     private Fornecedor fornecedor;
 
+    public int getQtdminima() {
+        return qtdminima;
+    }
+
+    public void setQtdminima(int qtdminima) {
+        this.qtdminima = qtdminima;
+    }
+
+    public int getQtdcompra() {
+        return qtdcompra;
+    }
+
+    public void setQtdcompra(int qtdcompra) {
+        this.qtdcompra = qtdcompra;
+    }
+    
     public Produto(long codigo) {
         this.codigo_barra = codigo;
     }

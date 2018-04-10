@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -22,9 +24,9 @@ public class ProdutoDAO {
     private static final String SELECTALL = "SELECT * FROM produto WHERE ativo = true";
     private static final String SELECTID = "SELECT * FROM produto WHERE id = ? and ativo = true";
     private static final String SELECTCD = "SELECT * FROM produto WHERE codbar = ? and ativo = true";
-    private static final String ALTERPRD = "UPDATE produto SET descricao=?, precocusto=?, precovenda=?, categoria=?, subcat=?, fornecedor=? WHERE codbar = ?";
+    private static final String ALTERPRD = "UPDATE produto SET descricao=?, precocusto=?, precovenda=?, categoria=?, subcat=?, fornecedor=?, codbar=?, qtdminima=?, qtdcompra=? WHERE codbar = ?";
     private static final String INATIVAPRD = "UPDATE produto SET ativo = false WHERE codbar = ?";
-
+    private static final String INSERTPROD = "INSERT INTO produto(descricao,codbar,precocusto,precovenda,categoria,subcat,fornecedor, estoque, qtdminima, qtdcompra) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?)";
     public boolean inativarProduto(Produto produto) {
         Connection conexao = null;
 
@@ -53,6 +55,9 @@ public class ProdutoDAO {
             stmt.setInt(5, produto.getSubCategoria().getId());
             stmt.setInt(6, produto.getFornecedor().getId());
             stmt.setLong(7, produto.getCodigo_barra());
+            stmt.setInt(8, produto.getQtdminima());
+            stmt.setInt(9, produto.getQtdcompra());
+            stmt.setLong(10, produto.getCodigo_barra());
             stmt.executeUpdate();
             stmt.close();
             conexao.close();
@@ -85,6 +90,8 @@ public class ProdutoDAO {
             produto.setQuantidade_estoque(rs.getInt("estoque"));
             produto.setSubCategoria(subcategoria);
             produto.setCodigo_barra(rs.getLong("codbar"));
+            produto.setQtdcompra(rs.getInt("qtdcompra"));
+            produto.setQtdminima(rs.getInt("qtdminima"));
             rs.close();
             stmt.close();
             conexao.close();
@@ -101,7 +108,7 @@ public class ProdutoDAO {
         Connection conexao = null;
         try {
             conexao = ConectaBanco.getConexao();
-            PreparedStatement stmt = conexao.prepareStatement("INSERT INTO produto(descricao,codbar,precocusto,precovenda,categoria,subcat,fornecedor, estoque) VALUES (?, ?, ?, ?, ?, ?, ?, 0);");
+            PreparedStatement stmt = conexao.prepareStatement(INSERTPROD);
             stmt.setString(1, produto.getDescricao());
             stmt.setLong(2, produto.getCodigo_barra());
             stmt.setDouble(3, produto.getPreco_custo());
@@ -109,7 +116,8 @@ public class ProdutoDAO {
             stmt.setInt(5, produto.getCategoria().getId());
             stmt.setInt(6, produto.getSubCategoria().getId());
             stmt.setInt(7, produto.getFornecedor().getId());
-
+            stmt.setInt(8, produto.getQtdminima());
+            stmt.setInt(9, produto.getQtdcompra());
             stmt.execute();
             conexao.close();
             return true;

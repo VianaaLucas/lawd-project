@@ -53,6 +53,14 @@
                                     <input id="precovenda" name="precovenda" required="required" type="text" value="<%= request.getAttribute("precoVenda")%>" /> 
                                 </p>
                                 <p> 
+                                    <label for="qtdCompra" class="qtdCompra" data-icon=""> Quantidade de compra: </label>
+                                    <input id="qtdCompra" name="qtdCompra" required="required" type="text" placeholder="" value="<%= request.getAttribute("qtdCompra")%>" /> 
+                                </p>
+                                <p> 
+                                    <label for="qtdMinima" class="qtdMinima" data-icon=""> Quantidade mínima em estoque: </label>
+                                    <input id="qtdMinima" name="qtdMinima" required="required" type="text" placeholder="" value="<%= request.getAttribute("qtdMinima")%>" /> 
+                                </p>
+                                <p> 
                                     <label for="qtEstoque" class="qtEstoque" data-icon=""> Estoque: </label>
                                     <input id="estoque" name="estoque" required="required" type="text" value="<%= request.getAttribute("estoque")%>"  disabled/> 
                                 </p>

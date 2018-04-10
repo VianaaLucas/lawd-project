@@ -27,6 +27,7 @@ public class ControleProduto extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        //sessão destinada à consulta dinamica de dados para formulários
         try {
             String acao = request.getParameter("acao");
             if (acao.equals("listacategoria")) {
@@ -97,6 +98,8 @@ public class ControleProduto extends HttpServlet {
             produto.setCategoria(categoria);
             produto.setSubCategoria(subcategoria);
             produto.setFornecedor(fornecedor);
+            produto.setQtdcompra(Integer.parseInt(request.getParameter("qtdCompra")));
+            produto.setQtdminima(Integer.parseInt(request.getParameter("qtdMinima")));
             if (prodDAO.alteraProduto(produto) == true) {
                 request.setAttribute("msg", "Produto alterado com sucesso!!!");
                 request.getRequestDispatcher("produtosConsultar.jsp").forward(request, response);
@@ -126,6 +129,8 @@ public class ControleProduto extends HttpServlet {
             request.setAttribute("fornecedor", produtoP.getFornecedor().getId());
             request.setAttribute("categoria", produtoP.getCategoria().getId());
             request.setAttribute("subcategoria", produtoP.getSubCategoria().getId());
+            request.setAttribute("qtdCompra", produtoP.getQtdcompra());
+            request.setAttribute("qtdMinima", produtoP.getQtdminima());
             request.getRequestDispatcher("produtosAlterar.jsp").forward(request, response);
         } else if (request.getParameter("botao").equals("CADASTRAR")) {
             Produto produto = new Produto();
@@ -143,6 +148,8 @@ public class ControleProduto extends HttpServlet {
             produto.setCodigo_barra(Long.parseLong(request.getParameter("codbarras")));
             produto.setPreco_custo(Double.parseDouble(request.getParameter("pcusto")));
             produto.setPreco_venda(Double.parseDouble(request.getParameter("pVenda")));
+            produto.setQtdcompra(Integer.parseInt(request.getParameter("qtdCompra")));
+            produto.setQtdminima(Integer.parseInt(request.getParameter("qtdMinima")));
             if (cadProDAO.cadastrarProduto(produto) == true) {
                 request.setAttribute("msg", "Produto cadastrado com sucesso!!!");
                 request.getRequestDispatcher("produtosCadastrar.jsp").forward(request, response);

@@ -66,6 +66,17 @@
                                     <label for="pVenda" class="pVenda" data-icon=""> Preço de venda: </label>
                                     <input id="pVenda" name="pVenda" required="required" type="text" placeholder="" /> 
                                 </p>
+
+                                <p> 
+                                    <label for="qtdCompra" class="qtdCompra" data-icon=""> Quantidade de compra: </label>
+                                    <input id="qtdCompra" name="qtdCompra" required="required" type="text" placeholder="" /> 
+                                </p>
+
+                                <p> 
+                                    <label for="qtdMinima" class="qtdMinima" data-icon=""> Quantidade mínima em estoque: </label>
+                                    <input id="qtdMinima" name="qtdMinima" required="required" type="text" placeholder="" /> 
+                                </p>
+
                                 <p> 
                                     <label for="Categoria" class="Categoria" data-icon=""> Categoria: </label>
                                     <select class="form-control" id="categoria" required="required" name="categoria" title="Categoria">
