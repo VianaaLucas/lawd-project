@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -22,6 +24,7 @@ public class PedidoDAO {
     private static final String INSERTITEM = "INSERT INTO public.itempedido(id_pedido, codigo_produto, quantidade, valor_unitario) VALUES (?, ?, ?, ?)";
     private static final String BAIXAESTOQUE = "UPDATE produto SET estoque = (SELECT estoque FROM produto WHERE id = ?) - ? where id = ?";
     private static final String FECHAPED = "UPDATE pedido SET status = ? WHERE id = ?";
+    private static final String TESTCSVLISTAR = "SELECT * FROM pedido";
 
     public int gravaPedidos(CarrinhoDeCompra carrinho) {
         Connection conexao = null;
@@ -75,5 +78,26 @@ public class PedidoDAO {
             System.out.println("NÃO PASSOU");
         }
         System.out.println("PASSOU");
+    }
+    
+    public List<String> testCsvTest() throws Exception {
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        conexao = ConectaBanco.getConexao();
+        pstmt = conexao.prepareStatement(TESTCSVLISTAR);
+        
+        rs = pstmt.executeQuery();
+        List<String> lista = new ArrayList<>();
+        
+        while(rs.next()){
+            lista.add(String.valueOf(rs.getInt("id")));
+            lista.add(String.valueOf(rs.getDate("data_pedido")));
+            lista.add(String.valueOf(rs.getDouble("valor_total")));
+            lista.add(String.valueOf(rs.getString("status")));
+        }
+        
+        return lista;
     }
 }
