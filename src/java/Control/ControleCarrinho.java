@@ -1,6 +1,6 @@
  package Control;
 
-import Model.CarrinhoDeCompra;
+import Model.Pedido;
 import Model.ItemDeCompra;
 import Model.DAO.PedidoDAO;
 import Model.DAO.ProdutoDAO;
@@ -32,11 +32,11 @@ public class ControleCarrinho extends HttpServlet {
                 HttpSession sessao = request.getSession();
                 //recupera um carrinho de produtos da sessão
                 //se não exite um carrinho na sessão o valor será igual a null
-                CarrinhoDeCompra carrinho = (CarrinhoDeCompra) sessao.getAttribute("carrinho");
+                Pedido carrinho = (Pedido) sessao.getAttribute("carrinho");
                 //verifica se já exista um carrinho na sessao
                 if (carrinho == null) {
                     //cria um carrinho 
-                    carrinho = new CarrinhoDeCompra();
+                    carrinho = new Pedido();
                     sessao.setAttribute("carrinho", carrinho);
                 }
                 //verifica se o produto existe no carrinho
@@ -67,7 +67,7 @@ public class ControleCarrinho extends HttpServlet {
                 //recupera a sessão pertencente ao request
                 HttpSession sessao = request.getSession();
                 //recupera um carrinho de produtos da sessão
-                CarrinhoDeCompra carrinho = (CarrinhoDeCompra) sessao.getAttribute("carrinho");
+                Pedido carrinho = (Pedido) sessao.getAttribute("carrinho");
                 //recupera o id do produto
                 int idProduto = Integer.parseInt(request.getParameter("idProduto"));
                 ItemDeCompra itemRemove = new ItemDeCompra();
@@ -110,11 +110,11 @@ public class ControleCarrinho extends HttpServlet {
             HttpSession sessao = request.getSession();
             //recupera um carrinho de produtos da sessão
             //se não exite um carrinho na sessão o valor será igual a null
-            CarrinhoDeCompra carrinho = (CarrinhoDeCompra) sessao.getAttribute("carrinho");
+            Pedido carrinho = (Pedido) sessao.getAttribute("carrinho");
             //verifica se já exista um carrinho na sessao
             if (carrinho == null) {
                 //cria um carrinho 
-                carrinho = new CarrinhoDeCompra();
+                carrinho = new Pedido();
                 sessao.setAttribute("carrinho", carrinho);
             }
             //verifica se o produto existe no carrinho
@@ -151,18 +151,20 @@ public class ControleCarrinho extends HttpServlet {
         } else if (botao.equals("FINALIZAR")) {
             //Grava os itens e o pedido no banco de dados e efetua a baixa no estoque
             HttpSession sessao = request.getSession();
-            CarrinhoDeCompra carrinho = (CarrinhoDeCompra) sessao.getAttribute("carrinho");
+            Pedido carrinho = (Pedido) sessao.getAttribute("carrinho");
             PedidoDAO pedido = new PedidoDAO();
             int idPedido = 0;
             idPedido = pedido.gravaPedidos(carrinho);
             if (idPedido > 0) {
+                //nota
                 sessao.setAttribute("idPedido", idPedido);
+                ControleProduto estoque = new ControleProduto();
                 request.getRequestDispatcher("/pagamento.jsp").forward(request, response);
             }
         } else if (botao.equals("ENCERRAR")) {
             //encerra a sessão e abre a pagina home
             HttpSession sessao = request.getSession();
-            CarrinhoDeCompra carrinho = (CarrinhoDeCompra) sessao.getAttribute("carrinho");
+            Pedido carrinho = (Pedido) sessao.getAttribute("carrinho");
             sessao.removeAttribute("carrinho");
             response.sendRedirect("home.jsp");
             

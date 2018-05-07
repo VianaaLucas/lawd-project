@@ -10,9 +10,11 @@ import Model.DAO.ParceiroDAO;
 import Model.Endereco;
 import Model.Estado;
 import Model.Fornecedor;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,17 +31,19 @@ public class ControleParceiro extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ControleParceiro</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ControleParceiro at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PrintWriter out = response.getWriter();
+        try {
+            String acao = request.getParameter("acao");
+            if (acao.equals("listafornecedor")) {
+                ParceiroDAO fornecedorDAO = new ParceiroDAO();
+                ArrayList<Fornecedor> listaFornecedor = fornecedorDAO.lista();
+                Gson gson = new Gson();
+                String listaJSON = gson.toJson(listaFornecedor);
+                out.write(listaJSON);
+            }
+        }catch (Exception erro) {
+            request.setAttribute("erro", erro);
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
         }
     }
 
@@ -53,7 +57,7 @@ public class ControleParceiro extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String acao = request.getParameter ("botao");
+        String acao = request.getParameter("botao");
         ParceiroDAO parceiro = new ParceiroDAO();
         String tipo = request.getParameter("tipo");
         String tpPessoa = request.getParameter("pessoa");
@@ -69,8 +73,8 @@ public class ControleParceiro extends HttpServlet {
         endereco.setRua(request.getParameter("logradouro"));
         endereco.setNumero(parseInt(request.getParameter("numero")));
         endereco.setComplemento(request.getParameter("complemento"));
-        
-        if (acao.equals("CADASTRAR FORNECEDOR")){
+
+        if (acao.equals("CADASTRAR FORNECEDOR")) {
             Fornecedor fornecedor = new Fornecedor();
             fornecedor.setEndereco(endereco);
             fornecedor.setCelular(request.getParameter("celular"));
@@ -81,7 +85,7 @@ public class ControleParceiro extends HttpServlet {
             fornecedor.setIe(request.getParameter("IE"));
             fornecedor.setRazao_social(request.getParameter("razaoSocial"));
             fornecedor.setPedido_minimo(Double.parseDouble(request.getParameter("pedidoMinimo")));
-            
+
             if (parceiro.cadastrarFornecedor(fornecedor) == true) {
                 request.setAttribute("msg", "Fornecedor cadastrado com sucesso!!!");
                 response.sendRedirect("parceirosCadForn.jsp");
@@ -89,8 +93,8 @@ public class ControleParceiro extends HttpServlet {
                 request.setAttribute("msg", "Falha ao cadastrar fornecedor");
                 response.sendRedirect("parceirosCadForn.jsp");
             }
-        } else if (acao.equals("CADASTRAR CLIENTE")){
-            
+        } else if (acao.equals("CADASTRAR CLIENTE")) {
+
         }
     }
 

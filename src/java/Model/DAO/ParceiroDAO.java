@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ParceiroDAO {
 
-    private static final String LISTA_TODOS = "SELECT id, nome FROM fornecedor";
+    private static final String LISTA_TODOS = "SELECT id, nome FROM fornecedor ORDER BY nome";
     public ArrayList<Fornecedor> lista() {
         try {
 

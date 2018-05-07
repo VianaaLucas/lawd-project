@@ -5,7 +5,7 @@
  */
 package Model.DAO;
 
-import Model.CarrinhoDeCompra;
+import Model.Pedido;
 import Model.ItemDeCompra;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,16 +17,17 @@ import java.util.List;
 /**
  *
  * @author lucas
+ *
  */
 public class PedidoDAO {
 
-    private static final String INSERTPED = "INSERT INTO pedido(id, data_pedido, valor_total, status) VALUES (DEFAULT, CURRENT_TIMESTAMP, ?, ?) returning id";
-    private static final String INSERTITEM = "INSERT INTO public.itempedido(id_pedido, codigo_produto, quantidade, valor_unitario) VALUES (?, ?, ?, ?)";
-    private static final String BAIXAESTOQUE = "UPDATE produto SET estoque = (SELECT estoque FROM produto WHERE id = ?) - ? where id = ?";
-    private static final String FECHAPED = "UPDATE pedido SET status = ? WHERE id = ?";
-    private static final String TESTCSVLISTAR = "SELECT * FROM pedido";
+    private static final String INSERTPED   = "INSERT INTO pedido(id, data_pedido, valor_total, status) VALUES (DEFAULT, CURRENT_TIMESTAMP, ?, ?) returning id";
+    private static final String INSERTITEM      = "INSERT INTO public.itempedido(id_pedido, codigo_produto, quantidade, valor_unitario) VALUES (?, ?, ?, ?)";
+    private static final String BAIXAESTOQUE    = "UPDATE produto SET estoque = (SELECT estoque FROM produto WHERE id = ?) - ? where id = ?";
+    private static final String FECHAPED        = "UPDATE pedido SET status = ? WHERE id = ?";
+    private static final String TESTCSVLISTAR   = "SELECT * FROM pedido";
 
-    public int gravaPedidos(CarrinhoDeCompra carrinho) {
+    public int gravaPedidos(Pedido carrinho) {
         Connection conexao = null;
         PreparedStatement pstmt = null;
         try {
@@ -40,20 +41,23 @@ public class PedidoDAO {
             pstmt.close();
             conexao.close();
             for (ItemDeCompra item : carrinho.getItens()) {
-                conexao = ConectaBanco.getConexao();
-                pstmt = conexao.prepareStatement(INSERTITEM);
-                pstmt.setInt(1, idPedido);
-                pstmt.setInt(2, item.getProduto().getId());
-                pstmt.setInt(3, item.getQuantidade());
-                pstmt.setDouble(4, item.getProduto().getPreco_venda());
-                pstmt.execute();
-                pstmt.close();
-                pstmt = conexao.prepareStatement(BAIXAESTOQUE);
-                pstmt.setInt(1, item.getProduto().getId());
-                pstmt.setInt(2, item.getQuantidade());
-                pstmt.setInt(3, item.getProduto().getId());
-                pstmt.execute();
-                pstmt.close();
+                //itemdecompradao.gravaritem(id, item);
+//                conexao = ConectaBanco.getConexao();
+//                pstmt = conexao.prepareStatement(INSERTITEM);
+//                pstmt.setInt(1, idPedido);
+//                pstmt.setInt(2, item.getProduto().getId());
+//                pstmt.setInt(3, item.getQuantidade());
+//                pstmt.setDouble(4, item.getProduto().getPreco_venda());
+//                pstmt.execute();
+//                pstmt.close();
+                        
+                  //produtoDAO.baixaestoque();      
+//                pstmt = conexao.prepareStatement(BAIXAESTOQUE);
+//                pstmt.setInt(1, item.getProduto().getId());
+//                pstmt.setInt(2, item.getQuantidade());
+//                pstmt.setInt(3, item.getProduto().getId());
+//                pstmt.execute();
+//                pstmt.close();
                 conexao.close();
             }
             return idPedido;

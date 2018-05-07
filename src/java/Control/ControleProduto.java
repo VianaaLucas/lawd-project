@@ -18,6 +18,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+//select f.nome, f.email, p.descricao, p.estoque, p.qtdminima, p.qtdcompra 
+//from fornecedor f, produto p 
+//where p.fornecedor = f.id and p.estoque <= p.qtdminima
+
+
 /**
  * @author lucas
  */

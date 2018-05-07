@@ -1,14 +1,13 @@
 <%-- 
-    Document   : home
-    Created on : 17/11/2017, 19:38:09
+    Document   : admVendas
+    Created on : 10/04/2018, 22:21:31
     Author     : lucas
 --%>
 
-<%@page import="Model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
+    <html>
     <meta charset="UTF-8" />
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
     <title>LAWD - Home</title>
@@ -21,17 +20,10 @@
     <link rel="stylesheet" type="text/css" href="Style/style.css" />
     <link rel="stylesheet" type="text/css" href="Style/animate-custom.css" />
 </head>
-<body>
-    <%
-        Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
-        if (usuario != null) {
-    %>
-
+    <body>
     <div class="container">
         <header>
-            <h1>LAWD <span>ESCOLHA O MÓDULO DESEJADO</span></h1>
-            <h1>Bem Vindo <span><%= usuario.getPerfil()%></span></h1>
-            <%}%>
+            <h1>LAWD <span>ADMINISTRAÇÃO DE VENDAS</span></h1>
         </header>
         <section>				
             <div id="container_demo" >
@@ -40,30 +32,16 @@
                 <div id="wrapper">
                     <div id="login" class="animate form">
                         <form autocomplete="on"> 
-                            <h1>HOME</h1> 
+                            <h1>ADMINISTRAÇÃO DE VENDAS</h1> 
 
                             <p class="vendas button"> 
-                                <a href="pdv.jsp"> <input type="button" value="VENDAS" /></a> 
+                                <a href="pedidos.jsp"> <input type="button" value="PEDIDOS PARA COMPRA" /></a> 
                             </p>
 
                             <p class="produtos button"> 
-                                <a href="produtosHome.html"> <input type="button" value="PRODUTOS" /></a>
+                                <a href="home.jsp"> <input type="button" value="VOLTAR" /></a>
                             </p>
 
-                            <p class="parceiros button"> 
-                                <a href="parceirosHome.html"> <input type="button" value="PARCEIROS" /></a> 
-                            </p>
-
-                            <p class="admvendas button"> 
-                                <a href="admVendas.jsp"> <input type="button" value="ADM VENDAS" /></a>
-                            </p>
-
-                            <p class="admSys button"> 
-                                <a href="admin/cadastro_usuario.jsp"> <input type="button" value="ADMINISTRAÇÃO DE SISTEMA" /></a> 
-                            </p>
-
-                            <p class="Sair button"> 
-                                <a href="ControleAcesso?acao=Sair"> <input type="button" value="LOGOUT" /></a> 
                             </p>
                         </form>
                     </div>

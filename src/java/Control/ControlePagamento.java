@@ -5,15 +5,10 @@
  */
 package Control;
 
-import Model.CarrinhoDeCompra;
+import Model.Pedido;
 import Model.DAO.PagamentoDAO;
 import Model.Pagamento;
 
-import Model.Produto;
-import Model.TipoPagamento;
-import static Model.TipoPagamento.CARTAO_CREDITO;
-import static Model.TipoPagamento.CARTAO_DEBITO;
-import static Model.TipoPagamento.DINHEIRO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -54,7 +49,7 @@ public class ControlePagamento extends HttpServlet {
             //recupera a sessão pertencente ao request
             HttpSession sessao = request.getSession();
             //recupera um carrinho de produtos da sessão
-            CarrinhoDeCompra carrinho = (CarrinhoDeCompra) sessao.getAttribute("carrinho");
+            Pedido carrinho = (Pedido) sessao.getAttribute("carrinho");
             //recupera o id do produto
             int idProduto = Integer.parseInt(request.getParameter("idProduto"));
             Pagamento pagamento = new Pagamento();
@@ -80,7 +75,7 @@ public class ControlePagamento extends HttpServlet {
             int idPag = pagamentoDAO.gravarPagamento(pagamento);
             if (idPag != 0) {
                 pagamento.setId(idPag);
-                CarrinhoDeCompra carrinho = (CarrinhoDeCompra) sessao.getAttribute("carrinho");
+                Pedido carrinho = (Pedido) sessao.getAttribute("carrinho");
                 carrinho.addPagamento(pagamento);
                 carrinho.calculaTotalPago();
                 request.getRequestDispatcher("/pagamento.jsp").forward(request, response);

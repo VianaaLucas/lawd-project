@@ -48,6 +48,10 @@
         <servlet-name>ControlePagamento</servlet-name>
         <servlet-class>Control.ControlePagamento</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControlePedidoCompra</servlet-name>
+        <servlet-class>Control.ControlePedidoCompra</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>
         <url-pattern>/ServletLogin</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>ControlePagamento</servlet-name>
         <url-pattern>/ControlePagamento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControlePedidoCompra</servlet-name>
+        <url-pattern>/ControlePedidoCompra</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
