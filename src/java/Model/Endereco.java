@@ -3,15 +3,10 @@ package Model;
 public class Endereco {
 
 	private int cep;
-
 	private int numero;
-
 	private String complemento;
-
 	private String rua;
-
 	private Cidade cidade;
-
 	private Estado estado;
 
     public int getCep() {

@@ -6,7 +6,6 @@
 package Model.DAO;
 
 import Model.DAO.ConectaBanco;
-import Model.Categoria;
 import Model.Desconto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

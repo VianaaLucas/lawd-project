@@ -4,7 +4,6 @@ package Control;
 import Model.DAO.LoginDAO;
 import Model.Login;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ServletLogin extends HttpServlet {
+public class ControleLogin extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,7 +39,7 @@ public class ServletLogin extends HttpServlet {
             } else response.sendRedirect("login.html");
             
         } catch (SQLException ex) {
-            Logger.getLogger(ServletLogin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

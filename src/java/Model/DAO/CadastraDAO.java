@@ -1,12 +1,10 @@
 package Model.DAO;
 
 import Model.Categoria;
-import Model.Login;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,9 +46,7 @@ public class CadastraDAO {
 
             PreparedStatement stmt = conexao.prepareStatement("insert into categoria (nome) values(?) ");
             stmt.setString(1, cat.getNome());
-
             stmt.execute();
-
             conexao.close();
             
             retorno = true;

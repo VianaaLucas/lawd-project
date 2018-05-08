@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class LoginDAO {
     public boolean logar (Login login) throws SQLException{
@@ -17,14 +16,11 @@ public class LoginDAO {
             conexao = ConectaBanco.getConexao();
             
             PreparedStatement comando = conexao.prepareStatement("select * from users where usuario = ? and senha = crypt(?, senha)");
-            
             comando.setString (1, login.getUser());
             comando.setString(2, login.getSenha());
-            
             ResultSet resultado = comando.executeQuery();
             
             int controle = 0;
-            
             if(resultado.next()){
                controle ++;
             }

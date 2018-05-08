@@ -8,14 +8,12 @@ package Control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import Model.Usuario;
-import Model.DAO.loginUsuarioDAO;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
+import Model.DAO.UsuarioDAO;
 import javax.servlet.RequestDispatcher;
 
 /**
@@ -36,7 +34,7 @@ public class ControleAcesso extends HttpServlet {
                 usuario.setUsuario(request.getParameter("txtUsuario"));
                 usuario.setSenha(request.getParameter("txtSenha"));
 
-                loginUsuarioDAO loginUsuarioDAO = new loginUsuarioDAO();
+                UsuarioDAO loginUsuarioDAO = new UsuarioDAO();
                 Usuario usuarioAutenticado = loginUsuarioDAO.autenticaUsuario(usuario);
                 // se  o usuario existe no banco
                 if (usuarioAutenticado != null) {

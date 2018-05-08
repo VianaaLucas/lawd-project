@@ -6,7 +6,7 @@
 package Control;
 
 import Model.Usuario;
-import Model.loginPerfilDeAcesso;
+import Model.PerfilDeAcesso;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -36,7 +36,7 @@ public class AcessoAdministrativo implements Filter {
         HttpSession sessaoUsuario = ((HttpServletRequest) request).getSession();
         Usuario usuario = (Usuario) sessaoUsuario.getAttribute("usuarioAutenticado");
 
-        if (usuario != null & usuario.getPerfil().equals(loginPerfilDeAcesso.GERENTE)) {
+        if (usuario != null & usuario.getPerfil().equals(PerfilDeAcesso.GERENTE)) {
             chain.doFilter(request, response);
         } else {
             ((HttpServletResponse) response).sendRedirect("../home.jsp");

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "ServletSubCat", urlPatterns = {"/ServletSubCat"})
-public class ServletSubCat extends HttpServlet {
+public class ControleSubCategoria extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,13 +35,10 @@ public class ServletSubCat extends HttpServlet {
             } else if (acao.equals("listasubcategoria")) {
                 int idcat = Integer.parseInt(request.getParameter("categoria"));
 
-//                SubCategoria subcat = new SubCategoria();
+                //SubCategoria subcat = new SubCategoria();
                 SubCatDAO subdao = new SubCatDAO();
-
                 Categoria cat = new Categoria(idcat);
-
                 List<SubCategoria> listaCats = subdao.listaParaCategoria(cat);
-
                 //serializa para JSON
                 Gson gson = new Gson();
                 String listaJSON = gson.toJson(listaCats);

@@ -3,25 +3,15 @@ package Model;
 public class Produto {
 
     private int id;
-
     private String descricao;
-
     private long codigo_barra;
-
     private double preco_custo;
-
     private double preco_venda;
-    
     private int qtdminima;
-    
     private int qtdcompra;
-
     private int quantidade_estoque;
-
     private Categoria categoria;
-
     private SubCategoria subCategoria;
-
     private Fornecedor fornecedor;
 
     public int getQtdminima() {

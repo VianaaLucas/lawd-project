@@ -3,15 +3,11 @@ package Model;
 public class Fornecedor extends Pessoa {
 
     private int id;
-
     private String cnpj;
-
     private String ie;
-
     private String razao_social;
-
     private double pedido_minimo;
-
+    
     public double getPedido_minimo() {
         return pedido_minimo;
     }

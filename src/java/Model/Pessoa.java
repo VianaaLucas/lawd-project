@@ -3,13 +3,9 @@ package Model;
 public class Pessoa {
 
     private String nome;
-
     private String telefone;
-
     private String celular;
-
     private String email;
-
     private Endereco endereco;
 
     public String getNome() {

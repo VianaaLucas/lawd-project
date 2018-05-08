@@ -12,7 +12,7 @@ package Model;
 public class Usuario {
     private String usuario;
     private String senha;
-    private loginPerfilDeAcesso perfil;
+    private PerfilDeAcesso perfil;
 
     public String getUsuario() {
         return usuario;
@@ -30,11 +30,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public loginPerfilDeAcesso getPerfil() {
+    public PerfilDeAcesso getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(loginPerfilDeAcesso perfil) {
+    public void setPerfil(PerfilDeAcesso perfil) {
         this.perfil = perfil;
     }
     

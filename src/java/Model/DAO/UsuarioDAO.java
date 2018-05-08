@@ -15,9 +15,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import Model.loginPerfilDeAcesso;
+import Model.PerfilDeAcesso;
 
-public class loginUsuarioDAO {
+public class UsuarioDAO {
 
     private static final String CADASTRA_NOVO_USUARIO = "INSERT INTO users(usuario, senha, perfil) VALUES(?,crypt(?, gen_salt('bf',8)),?)";
     private static final String AUTENTICA_USUARIO = "SELECT * FROM users WHERE usuario=? and senha = crypt(?, senha)";
@@ -61,7 +61,7 @@ public class loginUsuarioDAO {
                 usuarioAutenticado = new Usuario();
                 usuarioAutenticado.setUsuario(rsUsuario.getString("Usuario"));
                 usuarioAutenticado.setSenha(rsUsuario.getString("Senha"));
-                usuarioAutenticado.setPerfil(loginPerfilDeAcesso.valueOf(rsUsuario.getString("perfil")));
+                usuarioAutenticado.setPerfil(PerfilDeAcesso.valueOf(rsUsuario.getString("perfil")));
             }
         } catch (SQLException sqlErro) {
             throw new RuntimeException(sqlErro);

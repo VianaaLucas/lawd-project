@@ -2,7 +2,7 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>ServletLogin</servlet-name>
-        <servlet-class>Control.ServletLogin</servlet-class>
+        <servlet-class>Control.ControleLogin</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ConsultaCategoria</servlet-name>
@@ -10,7 +10,7 @@
     </servlet>
     <servlet>
         <servlet-name>ServletSubCat</servlet-name>
-        <servlet-class>Control.ServletSubCat</servlet-class>
+        <servlet-class>Control.ControleSubCategoria</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CadastroParceiro</servlet-name>

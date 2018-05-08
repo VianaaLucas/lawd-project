@@ -11,9 +11,7 @@ package Model;
  */
 public class SubCategoria {
     private int id;
-    
     private String nome;
-    
     private int categoria;
 
     public int getId() {

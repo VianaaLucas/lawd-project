@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Model.Usuario;
-import Model.DAO.loginUsuarioDAO;
-import Model.loginPerfilDeAcesso;
+import Model.DAO.UsuarioDAO;
+import Model.PerfilDeAcesso;
 
 /**
  *
@@ -31,13 +31,13 @@ public class ControleUsuario extends HttpServlet {
                 usuario.setSenha(request.getParameter("txtSenha"));
                 String perfil = request.getParameter("optPerfil");
                 if (perfil.equalsIgnoreCase("administrador")) {
-                    usuario.setPerfil(loginPerfilDeAcesso.GERENTE);
+                    usuario.setPerfil(PerfilDeAcesso.GERENTE);
                 } else if (perfil.equalsIgnoreCase("vendedor")) {
-                    usuario.setPerfil(loginPerfilDeAcesso.VENDEDOR);
+                    usuario.setPerfil(PerfilDeAcesso.VENDEDOR);
                 } else if (perfil.equalsIgnoreCase("estoquista")) {
-                    usuario.setPerfil(loginPerfilDeAcesso.ESTOQUISTA);
+                    usuario.setPerfil(PerfilDeAcesso.ESTOQUISTA);
                 }
-                loginUsuarioDAO usuarioDAO = new loginUsuarioDAO();
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
                 usuarioDAO.cadastraNovoUsuario(usuario);
                 request.setAttribute("msg", "Usuario cadastrado com sucesso!!!");
                 request.getRequestDispatcher("admin/cadastro_usuario.jsp").forward(request, response);

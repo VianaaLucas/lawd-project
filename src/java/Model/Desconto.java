@@ -5,9 +5,6 @@
  */
 package Model;
 
-import Model.DAO.DescontoDAO;
-import java.util.Date;
-
 /**
  *
  * @author andre.albuquerque

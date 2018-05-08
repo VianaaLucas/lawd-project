@@ -5,14 +5,9 @@ public class ClienteJuridico extends Pessoa {
 //    private Pessoa pessoa;
     
     private int id;
-
     private String cnpj;
-
     private String ie;
-
     private String razao_social;
-
-    private Login login;
 
     public int getId() {
         return id;
@@ -21,16 +16,6 @@ public class ClienteJuridico extends Pessoa {
     public void setId(int id) {
         this.id = id;
     }
-
-    public Login getLogin() {
-        return login;
-    }
-
-    public void setLogin(Login login) {
-        this.login = login;
-    }
-
-    
     
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;

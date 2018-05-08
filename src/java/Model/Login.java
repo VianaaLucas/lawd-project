@@ -9,7 +9,6 @@ import java.sql.SQLException;
 
 public class Login {
     private String user;
-
     private String senha;
 
     public String getUser() {

@@ -9,7 +9,7 @@ package Model;
  *
  * @author hataishi
  */
-public enum loginPerfilDeAcesso {
+public enum PerfilDeAcesso {
     VENDEDOR,
     GERENTE,
     ESTOQUISTA,
