@@ -20,6 +20,10 @@ public class Pedido {
     private double totalPago;
     private double troco;
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
     public double getTroco() {
         if (this.totalPago - this.total > 0){
             this.troco = Math.abs(this.totalPago - this.total);

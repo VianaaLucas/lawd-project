@@ -7,7 +7,7 @@ $("document").ready(function () {
         document.getElementById("cidade").disabled = true;
         $.ajax({
             // url o recurso no servidor
-            url: "CadastroParceiro",
+            url: "ControleParceiro",
             type: 'GET',
             // tipoderetorno
             dataType: "json",
@@ -55,7 +55,7 @@ $("document").ready(function () {
 
         $.ajax({
             // url o recurso no servidor
-            url: "CadastroParceiro",
+            url: "ControleParceiro",
             type: 'GET',
             // tipoderetorno
             dataType: "json",

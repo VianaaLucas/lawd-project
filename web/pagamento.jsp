@@ -6,7 +6,7 @@
 
 <%@page import="Model.ItemDeCompra"%>
 <%@page import="Model.Pagamento"%>
-<%@page import="Model.CarrinhoDeCompra"%>
+<%@page import="Model.Pedido"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,7 +27,7 @@
         </style>
     </head>
     <body>
-        <% CarrinhoDeCompra carrinho = (CarrinhoDeCompra) session.getAttribute("carrinho");%>
+        <% Pedido pedido = (Pedido) session.getAttribute("carrinho");%>
         <div class = "uk-container uk-container-center" >
             <div class="uk-grid uk-width-1-1 uk-height-1-1 uk-margin-small-top " uk-grid>
 
@@ -43,8 +43,8 @@
                             </tr>
                             <%
                                 //recupera os produtos do carrinho da sessao
-                                if (carrinho != null) {
-                                    for (ItemDeCompra item : carrinho.getItens()) {
+                                if (pedido != null) {
+                                    for (ItemDeCompra item : pedido.getItens()) {
                             %>
                         </thead>
                         <tbody>
@@ -75,9 +75,9 @@
                             </tr>
                             <%
                                 //recupera os produtos do carrinho da sessao
-                                if (carrinho != null) {
-                                    if (carrinho.getPagamentos() != null) {
-                                        for (Pagamento pagamento : carrinho.getPagamentos()) {
+                                if (pedido != null) {
+                                    if (pedido.getPagamentos() != null) {
+                                        for (Pagamento pagamento : pedido.getPagamentos()) {
                             %>
                         </thead>
                         <tbody>
@@ -133,14 +133,14 @@
                             <tbody>
                                 <tr class="uk-text-large">
 
-                                    <% if (carrinho != null) {%>
-                                    <td><%=NumberFormat.getCurrencyInstance().format(carrinho.calculaTotal())%></td>
+                                    <% if (pedido != null) {%>
+                                    <td><%=NumberFormat.getCurrencyInstance().format(pedido.calculaTotal())%></td>
                                     <% } else {%>
                                     <td>0,00</td>
                                     <%}%>
-                                    <td><%=NumberFormat.getCurrencyInstance().format(carrinho.getTotalPago())%></td>
-                                    <td><%=NumberFormat.getCurrencyInstance().format(carrinho.calculaRestante())%></td>
-                                    <td><%=NumberFormat.getCurrencyInstance().format(carrinho.getTroco())%></td>
+                                    <td><%=NumberFormat.getCurrencyInstance().format(pedido.getTotalPago())%></td>
+                                    <td><%=NumberFormat.getCurrencyInstance().format(pedido.calculaRestante())%></td>
+                                    <td><%=NumberFormat.getCurrencyInstance().format(pedido.getTroco())%></td>
                                 </tr>
                             </tbody>
                         </table>

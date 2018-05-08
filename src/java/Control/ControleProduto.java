@@ -162,6 +162,24 @@ public class ControleProduto extends HttpServlet {
                 request.setAttribute("msg", "Ocorreu uma falha ao cadastrar o produto!!!");
                 request.getRequestDispatcher("produtosCadastrar.jsp").forward(request, response);
             }
+        } else if (request.getParameter("botao").equals("ADICIONAR")) {
+            try {
+
+                Produto produto = new Produto();
+                produto.setCodigo_barra(Long.parseLong(request.getParameter("cod")));
+                produto.setQuantidade_estoque(Integer.parseInt(request.getParameter("quantidade")));
+                ProdutoDAO entrada = new ProdutoDAO();
+
+                if (entrada.realizaEntrada(produto) == true) {
+                    request.setAttribute("msg", "Entrada de produto cadastrada com sucesso!!!");
+                    request.getRequestDispatcher("estoque.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("msg", "Ocorreu uma falha ao cadastrar a entrada do produto!!!");
+                    request.getRequestDispatcher("estoque.jsp").forward(request, response);
+                }
+            } catch (Exception e) {
+
+            }
         }
     }
 

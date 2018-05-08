@@ -19,7 +19,7 @@
         <link rel="stylesheet" type="text/css" href="Style/style.css" />
         <link rel="stylesheet" type="text/css" href="Style/animate-custom.css" />
         <script type="text/javascript" src="js/jquery.js"></script>
-        <script type="text/javascript" src="js/subcat.js"></script>
+        <script type="text/javascript" src="js/produto.js"></script>
     </head>
     <body>
         <div class="container">
@@ -33,13 +33,13 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form  action="ConsultaCategoria" method="GET" autocomplete="on"> 
+                            <form  action="ControleCategoria" method="GET" autocomplete="on"> 
                                 <h1>CATEGORIA</h1> 		
 
                                 <p> 
                                     <label for="descricao" class="descricao"  data-icon="" > Descrição: </label>
 
-                                    <select class="form-control" id="selecao_categoria" name="selecao_categoria" title="CATEGORIA">
+                                    <select class="form-control" id="categoria" name="categoria" title="CATEGORIA">
                                         <option value="NULL" selected="selected">-- SELECIONE --</option>
 
                                     </select>

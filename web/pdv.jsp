@@ -4,7 +4,7 @@
     Author     : lucas
 --%>
 <%@page import="Model.ItemDeCompra"%>
-<%@page import="Model.CarrinhoDeCompra"%>
+<%@page import="Model.Pedido"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,7 +19,7 @@
         <script type="stylesheet" href="css/estilo.css"></script>
     </head>
     <body>   
-        <% CarrinhoDeCompra carrinho = (CarrinhoDeCompra) session.getAttribute("carrinho");%>
+        <% Pedido pedido = (Pedido) session.getAttribute("carrinho");%>
         <div class="uk-container uk-container-center">
             <div class="uk-grid">
                 <div class="uk-width-1-1">
@@ -45,8 +45,8 @@
                             </tr>
                             <%
                                 //recupera os produtos do carrinho da sessao
-                                if (carrinho != null) {
-                                    for (ItemDeCompra item : carrinho.getItens()) {
+                                if (pedido != null) {
+                                    for (ItemDeCompra item : pedido.getItens()) {
                             %>
                         </thead>
                         <tbody>
@@ -78,13 +78,13 @@
                             <tbody>
                                 <tr class="uk-text-large">
 
-                                    <% if (carrinho != null) {%>
-                                    <td><%= carrinho.getTotal_itens()%></td>
+                                    <% if (pedido != null) {%>
+                                    <td><%= pedido.getTotal_itens()%></td>
                                     <% } else {%>
                                     <td>0</td>
                                     <%}%>
-                                    <% if (carrinho != null) {%>
-                                    <td><%=NumberFormat.getCurrencyInstance().format(carrinho.calculaTotal())%></td>
+                                    <% if (pedido != null) {%>
+                                    <td><%=NumberFormat.getCurrencyInstance().format(pedido.calculaTotal())%></td>
                                     <% } else {%>
                                     <td>0,00</td>
                                     <%}%>

@@ -78,4 +78,50 @@ public class CategoriaDAO {
 
         return c;
     }
+    
+    public boolean Cadastrar(Categoria cat) throws SQLException {
+        boolean retorno = false;
+        Connection conexao = null;
+
+        try {
+
+            conexao = ConectaBanco.getConexao();
+
+            PreparedStatement stmt = conexao.prepareStatement("insert into categoria (id, nome) values (DEFAULT, ?) ");
+            stmt.setString(1, cat.getNome());
+            stmt.execute(); 
+            conexao.close();
+            
+            retorno = true;
+        } catch (Exception erro1) {
+            retorno = false;
+        }
+
+        return retorno;
+    }
+    
+    
+//método da classe antiga --archive--
+//    public List<Categoria> lista(){
+//        try{
+//            
+//            Connection conexao = ConectaBanco.getConexao();
+//            PreparedStatement pstmt = conexao.prepareStatement(LISTA_TODOS);
+//            
+//            ResultSet rs = pstmt.executeQuery();
+//            
+//            List<Categoria> listaCats = new ArrayList<>();
+//            while(rs.next()){
+//                Categoria categoria = new Categoria();
+//                categoria.setId(rs.getInt("id"));
+//                categoria.setNome(rs.getString("nome"));
+//                listaCats.add(categoria);
+//            }
+//            
+//            return listaCats;
+//            
+//        }catch(Exception e){
+//            throw new RuntimeException(e);
+//        }
+//    }
 }

@@ -34,7 +34,7 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form  action="CadastroCategoria" autocomplete="on" method="POST"> 
+                            <form  action="ControleCategoria" autocomplete="on" method="POST"> 
                                 <h1>CATEGORIA</h1> 
                                 <%
                                     String msg = (String) request.getAttribute("msg");
@@ -51,7 +51,7 @@
                                 </p>
 
                                 <p class="cadastrar button"> 
-                                    <input type="submit" value="CADASTRAR" name="categoria" /> 
+                                    <input type="submit" value="CADASTRAR" name="botao" /> 
                                 </p>
                                 <p class="voltar button"> 
                                     <a href="categoriaHome.html"> <input type="button" value="VOLTAR" /></a> 

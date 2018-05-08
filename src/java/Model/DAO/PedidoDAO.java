@@ -21,16 +21,16 @@ import java.util.List;
  */
 public class PedidoDAO {
 
-    private static final String INSERTPED   = "INSERT INTO pedido(id, data_pedido, valor_total, status) VALUES (DEFAULT, CURRENT_TIMESTAMP, ?, ?) returning id";
-    private static final String INSERTITEM      = "INSERT INTO public.itempedido(id_pedido, codigo_produto, quantidade, valor_unitario) VALUES (?, ?, ?, ?)";
-    private static final String BAIXAESTOQUE    = "UPDATE produto SET estoque = (SELECT estoque FROM produto WHERE id = ?) - ? where id = ?";
-    private static final String FECHAPED        = "UPDATE pedido SET status = ? WHERE id = ?";
-    private static final String TESTCSVLISTAR   = "SELECT * FROM pedido";
+    private static final String INSERTPED = "INSERT INTO pedido(id, data_pedido, valor_total, status) VALUES (DEFAULT, CURRENT_TIMESTAMP, ?, ?) returning id";
+    private static final String FECHAPED = "UPDATE pedido SET status = ? WHERE id = ?";
+    private static final String TESTCSVLISTAR = "SELECT * FROM pedido";
 
     public int gravaPedidos(Pedido carrinho) {
         Connection conexao = null;
         PreparedStatement pstmt = null;
         try {
+            ItemDeCompraDAO idcDAO = new ItemDeCompraDAO();
+            ProdutoDAO produtoDAO = new ProdutoDAO();
             conexao = ConectaBanco.getConexao();
             pstmt = conexao.prepareStatement(INSERTPED);
             pstmt.setDouble(1, carrinho.getTotal());
@@ -41,24 +41,8 @@ public class PedidoDAO {
             pstmt.close();
             conexao.close();
             for (ItemDeCompra item : carrinho.getItens()) {
-                //itemdecompradao.gravaritem(id, item);
-//                conexao = ConectaBanco.getConexao();
-//                pstmt = conexao.prepareStatement(INSERTITEM);
-//                pstmt.setInt(1, idPedido);
-//                pstmt.setInt(2, item.getProduto().getId());
-//                pstmt.setInt(3, item.getQuantidade());
-//                pstmt.setDouble(4, item.getProduto().getPreco_venda());
-//                pstmt.execute();
-//                pstmt.close();
-                        
-                  //produtoDAO.baixaestoque();      
-//                pstmt = conexao.prepareStatement(BAIXAESTOQUE);
-//                pstmt.setInt(1, item.getProduto().getId());
-//                pstmt.setInt(2, item.getQuantidade());
-//                pstmt.setInt(3, item.getProduto().getId());
-//                pstmt.execute();
-//                pstmt.close();
-                conexao.close();
+                idcDAO.gravarItem(idPedido, item);
+                produtoDAO.baixarEstoque(item);
             }
             return idPedido;
         } catch (Exception e) {
@@ -83,25 +67,25 @@ public class PedidoDAO {
         }
         System.out.println("PASSOU");
     }
-    
+
     public List<String> testCsvTest() throws Exception {
         Connection conexao = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        
+
         conexao = ConectaBanco.getConexao();
         pstmt = conexao.prepareStatement(TESTCSVLISTAR);
-        
+
         rs = pstmt.executeQuery();
         List<String> lista = new ArrayList<>();
-        
-        while(rs.next()){
+
+        while (rs.next()) {
             lista.add(String.valueOf(rs.getInt("id")));
             lista.add(String.valueOf(rs.getDate("data_pedido")));
             lista.add(String.valueOf(rs.getDouble("valor_total")));
             lista.add(String.valueOf(rs.getString("status")));
         }
-        
+
         return lista;
     }
 }

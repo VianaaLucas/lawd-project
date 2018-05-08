@@ -6,7 +6,7 @@ $("document").ready(function () {
     function carregaSelecaoCategoria() {
         $.ajax({
             // url o recurso no servidor
-            url: "ServletSubCat",
+            url: "ControleSubCategoria",
             type: 'GET',
             // tipo de retorno
             dataType: "json",

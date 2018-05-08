@@ -157,7 +157,8 @@ public class ControleCarrinho extends HttpServlet {
             idPedido = pedido.gravaPedidos(carrinho);
             if (idPedido > 0) {
                 //nota
-                sessao.setAttribute("idPedido", idPedido);
+                carrinho.setId(idPedido);
+                sessao.setAttribute("carrinho", carrinho);
                 ControleProduto estoque = new ControleProduto();
                 request.getRequestDispatcher("/pagamento.jsp").forward(request, response);
             }
@@ -171,8 +172,8 @@ public class ControleCarrinho extends HttpServlet {
         } else if (botao.equals("FINALIZARPEDIDO")) {
             HttpSession sessao = request.getSession();
             PedidoDAO pedido = new PedidoDAO();
-            int idPedido = (int) sessao.getAttribute("idPedido");
-            pedido.fechaPedido(idPedido);
+            Pedido carrinho = (Pedido) sessao.getAttribute("carrinho");
+            pedido.fechaPedido(carrinho.getId());
             sessao.removeAttribute("carrinho");
             sessao.removeAttribute("idPedido");
             response.sendRedirect("pdv.jsp");

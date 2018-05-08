@@ -4,6 +4,7 @@ import Model.Categoria;
 import Model.DAO.ConectaBanco;
 import Model.Desconto;
 import Model.Fornecedor;
+import Model.ItemDeCompra;
 import java.sql.Connection;
 import Model.Produto;
 import Model.SubCategoria;
@@ -25,6 +26,8 @@ public class ProdutoDAO {
     private static final String ALTERPRD = "UPDATE produto SET descricao=?, precocusto=?, precovenda=?, categoria=?, subcat=?, fornecedor=?, codbar=?, qtdminima=?, qtdcompra=? WHERE codbar = ?";
     private static final String INATIVAPRD = "UPDATE produto SET ativo = false WHERE codbar = ?";
     private static final String INSERTPROD = "INSERT INTO produto(descricao,codbar,precocusto,precovenda,categoria,subcat,fornecedor, estoque, qtdminima, qtdcompra) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?)";
+    private static final String BAIXAESTOQUE = "UPDATE produto SET estoque = (SELECT estoque FROM produto WHERE id = ?) - ? where id = ?";
+    
     public boolean inativarProduto(Produto produto) {
         Connection conexao = null;
 
@@ -236,10 +239,12 @@ public class ProdutoDAO {
                     produto.setCodigo_barra(rs.getLong("codbar"));
                     produto.setDescricao(rs.getString("descricao"));
                     Double desc = desconto.verificaDesconto(rs.getDouble("precovenda"), rs.getInt("categoria"));
-                    if (desc != 0){
-                       produto.setPreco_venda(desc);
-                    } else produto.setPreco_venda(rs.getDouble("precovenda"));
-                    
+                    if (desc != 0) {
+                        produto.setPreco_venda(desc);
+                    } else {
+                        produto.setPreco_venda(rs.getDouble("precovenda"));
+                    }
+
                 } else {
                     return null;
                 }
@@ -256,5 +261,24 @@ public class ProdutoDAO {
             }
         }
         return produto;
+    }
+
+    public boolean baixarEstoque(ItemDeCompra item) {
+
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        try {
+            conexao = ConectaBanco.getConexao();
+            pstmt = conexao.prepareStatement(BAIXAESTOQUE);
+            pstmt.setInt(1, item.getProduto().getId());
+            pstmt.setInt(2, item.getQuantidade());
+            pstmt.setInt(3, item.getProduto().getId());
+            pstmt.execute();
+            pstmt.close();
+            conexao.close();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }

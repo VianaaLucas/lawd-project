@@ -6918,11 +6918,11 @@ ul.uk-nav-sub {
   /* 3 */
   color: #1e87f0 !important;
 }
-@supports (-webkit-background-clip: text) {
+/*@supports (-webkit-background-clip:text) {
   .uk-text-background {
     background-color: #1e87f0;
   }
-}
+}*/
 /* Alignment modifiers
  ========================================================================== */
 .uk-text-right {

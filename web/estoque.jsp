@@ -35,7 +35,7 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form  action="EfetuarEntrada" autocomplete="on" method="POST"> 
+                            <form  action="ControleProduto" autocomplete="on" method="POST"> 
                                 <h1>EFETUAR ENTRADA	</h1> 		
                                 <%
                                     String msg = (String) request.getAttribute("msg");

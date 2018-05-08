@@ -6,6 +6,8 @@
 package Control;
 
 import Model.Cidade;
+import Model.DAO.CidadeDAO;
+import Model.DAO.EstadoDAO;
 import Model.DAO.ParceiroDAO;
 import Model.Endereco;
 import Model.Estado;
@@ -15,6 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,26 +34,51 @@ public class ControleParceiro extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
             String acao = request.getParameter("acao");
-            if (acao.equals("listafornecedor")) {
+            if (acao.equals("listaEstadosParaSelecao")) {
+
+                //busca a listadeestados
+                EstadoDAO edao = new EstadoDAO();
+                List<Estado> listaEstados = edao.lista();
+
+                //serializapara JSON
+                Gson gson = new Gson();
+                String listaJSON = gson.toJson(listaEstados);
+                out.println(listaJSON);
+
+            } else if (acao.equals("listaCidadesParaEstado")) {
+                //recupera o id do estado
+                int idestado = parseInt(request.getParameter("estado"));
+                Estado estado = new Estado(idestado);
+                CidadeDAO cdao = new CidadeDAO();
+                List<Cidade> listaCidades = cdao.listaParaEstado(estado);
+
+                //serializapara JSON
+                Gson gson = new Gson();
+                String listaJSON = gson.toJson(listaCidades);
+                out.println(listaJSON);
+
+            } else if (acao.equals("listafornecedor")) {
                 ParceiroDAO fornecedorDAO = new ParceiroDAO();
                 ArrayList<Fornecedor> listaFornecedor = fornecedorDAO.lista();
                 Gson gson = new Gson();
                 String listaJSON = gson.toJson(listaFornecedor);
                 out.write(listaJSON);
             }
-        }catch (Exception erro) {
-            request.setAttribute("erro", erro);
+
+        } catch (Exception e) {
+            request.setAttribute("erro", e);
             request.getRequestDispatcher("erro.jsp").forward(request, response);
         }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
     }
 
     @Override

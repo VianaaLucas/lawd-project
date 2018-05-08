@@ -44,8 +44,6 @@ public class ControlePagamento extends HttpServlet {
             throws ServletException, IOException {
         String acao = request.getParameter("acao");
         if (acao.equals("removePagamento")) {
-            int id = 0;
-            id = Integer.parseInt(request.getParameter("idProduto"));
             //recupera a sessão pertencente ao request
             HttpSession sessao = request.getSession();
             //recupera um carrinho de produtos da sessão
@@ -53,7 +51,7 @@ public class ControlePagamento extends HttpServlet {
             //recupera o id do produto
             int idProduto = Integer.parseInt(request.getParameter("idProduto"));
             Pagamento pagamento = new Pagamento();
-            pagamento.setId(id);
+            pagamento.setId(carrinho.getId());
             carrinho.removerPagamento(pagamento);
             //carrega a pagina do carrinho de compras
             request.getRequestDispatcher("/pagamento.jsp").forward(request, response);
@@ -66,8 +64,9 @@ public class ControlePagamento extends HttpServlet {
         HttpSession sessao = request.getSession();
         String botao = request.getParameter("botao");
         if (botao.equals("REGISTRAR")) {
+            Pedido carrinho = (Pedido) sessao.getAttribute("carrinho");
             Pagamento pagamento = new Pagamento();
-            pagamento.setId_Pedido((int) sessao.getAttribute("idPedido"));
+            pagamento.setId_Pedido(carrinho.getId());
             pagamento.setTipo_pag((String) request.getParameter("FormaPagamento"));
             pagamento.setQuantia(Double.parseDouble(request.getParameter("valorRecebido")));
 
@@ -75,7 +74,6 @@ public class ControlePagamento extends HttpServlet {
             int idPag = pagamentoDAO.gravarPagamento(pagamento);
             if (idPag != 0) {
                 pagamento.setId(idPag);
-                Pedido carrinho = (Pedido) sessao.getAttribute("carrinho");
                 carrinho.addPagamento(pagamento);
                 carrinho.calculaTotalPago();
                 request.getRequestDispatcher("/pagamento.jsp").forward(request, response);
