@@ -7,6 +7,8 @@ package Model.DAO;
 
 import Model.Pedido;
 import Model.ItemDeCompra;
+import Model.DAO.ProdutoDAO;
+import Model.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,6 +33,7 @@ public class PedidoDAO {
         try {
             ItemDeCompraDAO idcDAO = new ItemDeCompraDAO();
             ProdutoDAO produtoDAO = new ProdutoDAO();
+            PedidoCompraDAO pedidodao = new PedidoCompraDAO();
             conexao = ConectaBanco.getConexao();
             pstmt = conexao.prepareStatement(INSERTPED);
             pstmt.setDouble(1, carrinho.getTotal());
@@ -43,11 +46,22 @@ public class PedidoDAO {
             for (ItemDeCompra item : carrinho.getItens()) {
                 idcDAO.gravarItem(idPedido, item);
                 produtoDAO.baixarEstoque(item);
+                Produto produto = new Produto();
+                produto.setCodigo_barra(item.getProduto().getCodigo_barra());
+                produto = produtoDAO.consultarPorCodigo(produto);
+                if (produto.getQuantidade_estoque() <= produto.getQtdminima()) {
+                    int numeropedido = pedidodao.checaPedido(produto);
+                    if (numeropedido == 0) {
+                        numeropedido = pedidodao.criaPedido(produto);
+                    }
+                    idcDAO.gravarItemCompra(numeropedido, item, produto.getQtdcompra());
+                }
             }
             return idPedido;
         } catch (Exception e) {
             return 0;
         }
+            
 
     }
 
