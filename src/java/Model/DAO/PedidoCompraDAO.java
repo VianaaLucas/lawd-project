@@ -11,6 +11,7 @@ import Model.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,8 @@ public class PedidoCompraDAO {
     private static final String CHECK_PEDIDO = "SELECT * FROM pedidodecompra WHERE fornecedor = ? AND status = ?";
     private static final String INS_PEDIDO = "INSERT INTO pedidodecompra (id, fornecedor, datapedido, status) VALUES (DEFAULT, ?, CURRENT_TIMESTAMP, ?) returning id";
 
+    
+    private static final String ATUALIZA_PEDIDO = "UPDATE pedidodecompra SET totalpedido = totalpedido + (SELECT valor FROM itemdecompra WHERE id = ?) WHERE id = ?";
     public List<PedidodeCompra> consultaPedidos(int fornecedor) {
         try {
 
@@ -31,7 +34,6 @@ public class PedidoCompraDAO {
             PreparedStatement pstmt = conexao.prepareStatement(LISTA_PED_COMP);
             pstmt.setInt(1, fornecedor);
             ResultSet rs = pstmt.executeQuery();
-
             List<PedidodeCompra> listapedido = new ArrayList<>();
             while (rs.next()) {
                 PedidodeCompra pedido = new PedidodeCompra();
@@ -84,5 +86,22 @@ public class PedidoCompraDAO {
             return 0;
         }
 
+    }
+
+    public void atualizavalor(int numeropedido, int numeroitem) {
+
+        try {
+            Connection conexao = ConectaBanco.getConexao();
+            PreparedStatement pstmt = conexao.prepareStatement(ATUALIZA_PEDIDO);
+            pstmt.setInt (1, numeroitem);
+            pstmt.setInt (2, numeropedido);
+            pstmt.execute();
+            pstmt.close();
+            conexao.close();
+            
+        } catch (SQLException e) {
+            SQLException erro = e;
+            System.out.println("nao passou");
+        }
     }
 }

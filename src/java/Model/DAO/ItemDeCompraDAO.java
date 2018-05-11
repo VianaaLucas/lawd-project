@@ -1,9 +1,10 @@
 package Model.DAO;
 
 import Model.ItemDeCompra;
-import Model.Pedido;
+import Model.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -12,7 +13,7 @@ import java.sql.PreparedStatement;
 public class ItemDeCompraDAO {
 
     private static final String INSERTITEM = "INSERT INTO public.itempedido(id_pedido, codigo_produto, quantidade, valor_unitario) VALUES (?, ?, ?, ?)";
-    private static final String INSERTITEMPED = "INSERT INTO itemdecompra (id, produto, quantidade, pedidocompra) VALUES (DEFAULT, ?, ?, ?)";
+    private static final String INSERTITEMPED = "INSERT INTO itemdecompra (id, produto, quantidade, pedidocompra, valor) VALUES (DEFAULT, ?, ?, ?, ?) returning id";
 
     public boolean gravarItem(int idPedido, ItemDeCompra item) {
         Connection conexao = null;
@@ -32,20 +33,21 @@ public class ItemDeCompraDAO {
         return true;
     }
 
-    public boolean gravarItemCompra(int idPedido, ItemDeCompra item, int qtd) {
+    public int gravarItemCompra(int idPedido, ItemDeCompra item, Produto produto) {
         Connection conexao = null;
         PreparedStatement pstmt = null;
         try {
             conexao = ConectaBanco.getConexao();
             pstmt = conexao.prepareStatement(INSERTITEMPED);
             pstmt.setInt(1, item.getProduto().getId());
-            pstmt.setInt(2, qtd);
+            pstmt.setInt(2, produto.getQtdcompra());
             pstmt.setInt(3, idPedido);
-            pstmt.execute();
-            pstmt.close();
-            return true;
+            pstmt.setDouble(4, (produto.getQtdcompra() * produto.getPreco_custo()));
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            return rs.getInt("id");
         } catch (Exception e) {
-            return false;
+            return 0;
         }
 
     }

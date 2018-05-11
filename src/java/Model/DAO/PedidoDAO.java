@@ -54,7 +54,8 @@ public class PedidoDAO {
                     if (numeropedido == 0) {
                         numeropedido = pedidodao.criaPedido(produto);
                     }
-                    idcDAO.gravarItemCompra(numeropedido, item, produto.getQtdcompra());
+                    int numeroitem = idcDAO.gravarItemCompra(numeropedido, item, produto);
+                    pedidodao.atualizavalor(numeropedido, numeroitem);
                 }
             }
             return idPedido;
@@ -77,9 +78,8 @@ public class PedidoDAO {
             pstmt.close();
             conexao.close();
         } catch (SQLException e) {
-            System.out.println("NÃO PASSOU");
+            
         }
-        System.out.println("PASSOU");
     }
 
     public List<String> testCsvTest() throws Exception {
