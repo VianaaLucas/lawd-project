@@ -52,7 +52,7 @@ public class ControleCarrinho extends HttpServlet {
                 //se não existe o item ou produto, cria um novo
                 if (existe == false) {
                     //encontra o produto no banco
-                    Produto produto = new ProdutoDAO().consultarPorId(idProduto);
+                    Produto produto = new ProdutoDAO().consultarPorCodbar(idProduto);
                     //cria um novo item
                     ItemDeCompra novoItem = new ItemDeCompra();
                     novoItem.setProduto(produto);
@@ -130,7 +130,7 @@ public class ControleCarrinho extends HttpServlet {
             //se não existe o item ou produto, cria um novo
             if (existe == false) {
                 //encontra o produto no banco
-                Produto produto = new ProdutoDAO().consultarPorId(codigo);
+                Produto produto = new ProdutoDAO().consultarPorCodbar(codigo);
                 //cria um novo item
                 ItemDeCompra novoItem = new ItemDeCompra();
                 novoItem.setProduto(produto);

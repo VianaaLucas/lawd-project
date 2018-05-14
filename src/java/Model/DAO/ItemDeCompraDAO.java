@@ -1,10 +1,13 @@
 package Model.DAO;
 
 import Model.ItemDeCompra;
+import Model.PedidodeCompra;
 import Model.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,7 +17,8 @@ public class ItemDeCompraDAO {
 
     private static final String INSERTITEM = "INSERT INTO public.itempedido(id_pedido, codigo_produto, quantidade, valor_unitario) VALUES (?, ?, ?, ?)";
     private static final String INSERTITEMPED = "INSERT INTO itemdecompra (id, produto, quantidade, pedidocompra, valor) VALUES (DEFAULT, ?, ?, ?, ?) returning id";
-
+    private static final String CONSULTAITENS = "SELECT * FROM itemdecompra WHERE pedidocompra = ?";
+    
     public boolean gravarItem(int idPedido, ItemDeCompra item) {
         Connection conexao = null;
         PreparedStatement pstmt = null;
@@ -50,5 +54,31 @@ public class ItemDeCompraDAO {
             return 0;
         }
 
+    }
+
+    public List<ItemDeCompra> consultaItemPedido(PedidodeCompra pedido) {
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        try{
+            conexao = ConectaBanco.getConexao();
+            pstmt = conexao.prepareStatement(CONSULTAITENS);
+            pstmt.setInt(1, pedido.getId());
+            ResultSet rs = pstmt.executeQuery();
+            ArrayList<ItemDeCompra> itens = new ArrayList<>();
+            while (rs.next()){
+                ItemDeCompra item = new ItemDeCompra();
+                Produto produto = new Produto();
+                ProdutoDAO produtodao = new ProdutoDAO();
+                produto = produtodao.consultaporid(rs.getInt("produto"));
+                item.setProduto(produto);
+                item.setQuantidade(rs.getInt("quantidade"));
+                item.setId(rs.getInt("id"));
+                itens.add(item);
+            }
+            return itens;
+        } catch (Exception e){
+            return null;
+        }
+        
     }
 }

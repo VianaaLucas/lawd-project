@@ -27,7 +27,7 @@ public class ProdutoDAO {
     private static final String INATIVAPRD = "UPDATE produto SET ativo = false WHERE codbar = ?";
     private static final String INSERTPROD = "INSERT INTO produto(descricao,codbar,precocusto,precovenda,categoria,subcat,fornecedor, estoque, qtdminima, qtdcompra) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?)";
     private static final String BAIXAESTOQUE = "UPDATE produto SET estoque = (SELECT estoque FROM produto WHERE id = ?) - ? where id = ?";
-    
+
     public boolean inativarProduto(Produto produto) {
         Connection conexao = null;
 
@@ -224,7 +224,7 @@ public class ProdutoDAO {
         return listaProduto;
     }
 
-    public Produto consultarPorId(long codigo) {
+    public Produto consultarPorCodbar(long codigo) {
         Connection conexao = null;
         Produto produto = new Produto();
         try {
@@ -280,5 +280,37 @@ public class ProdutoDAO {
             return false;
         }
         return true;
+    }
+
+    public Produto consultaporid(int id) {
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        try {
+            conexao = ConectaBanco.getConexao();
+            pstmt = conexao.prepareStatement(SELECTID);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            Produto produto = new Produto();
+            Categoria categoria = new Categoria();
+            Fornecedor fornecedor = new Fornecedor();
+            SubCategoria subcategoria = new SubCategoria();
+            categoria.setId(rs.getInt("categoria"));
+            subcategoria.setId(rs.getInt("subcat"));
+            fornecedor.setId(rs.getInt("fornecedor"));
+            produto.setDescricao(rs.getString("descricao"));
+            produto.setCodigo_barra(rs.getLong("codbar"));
+            produto.setPreco_venda(rs.getDouble("precovenda"));
+            produto.setPreco_custo(rs.getDouble("precocusto"));
+            produto.setQuantidade_estoque(rs.getInt("estoque"));
+            produto.setCategoria(categoria);
+            produto.setSubCategoria(subcategoria);
+            produto.setFornecedor(fornecedor);
+            produto.setQtdcompra(rs.getInt("qtdcompra"));
+            produto.setQtdminima(rs.getInt("qtdminima"));
+            return produto;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

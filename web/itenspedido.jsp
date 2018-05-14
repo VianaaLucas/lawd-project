@@ -1,19 +1,19 @@
 <%-- 
-    Document   : pedidoCompra
-    Created on : 17/04/2018, 20:31:59
+    Document   : itenspedido
+    Created on : 13/05/2018, 23:35:57
     Author     : lucas
 --%>
 <%@page import="java.text.NumberFormat"%>
-<%@page import="Model.Fornecedor"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
-<%@page import="Model.PedidodeCompra"%>
+<%@page import="Model.ItemDeCompra"%>
+<%@page import="Model.Produto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
+    <<head>
         <meta charset="UTF-8" />
-        <title>LAWD - Pedidos</title>
+        <title>LAWD - Itens de Pedido</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <meta name="description" content="Login and Registration Form with HTML5 and CSS3" />
         <meta name="keywords" content="html5, css3, form, switch, animation, :target, pseudo-class" />
@@ -27,7 +27,7 @@
         <script type="text/javascript" src="js/produto.js"></script>
     </head>
     <body>
-        <% List<PedidodeCompra> pedido = (List<PedidodeCompra>) session.getAttribute("pedidoCompra");%>
+        <% List<ItemDeCompra> itens = (List<ItemDeCompra>) session.getAttribute("itens");%>
         <div class="container">
             <header>
                 <h1>LAWD <span>PEDIDOS DE COMPRA</span></h1>
@@ -38,32 +38,28 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form autocomplete="on"> 
+                            <form autocomplete="on" method="POST" action="ControlePedidoCompra"> 
                                 <h1>PEDIDOS</h1> 
                                 <table class="uk-table uk-table-hover uk-table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Fornecedor</th>
-                                            <th>Valor do pedido</th>  
-                                            <th>Data</th>
-                                            <th>Status</th>
-                                            <th>Consultar</th>
+                                            <th>Código</th>
+                                            <th>Descrição</th>  
+                                            <th>Quantidade</th>
+                                            <th>Valor</th>
                                         </tr>
                                         <%
                                             //recupera os produtos do carrinho da sessao
-                                            if (pedido != null) {
-                                                for (PedidodeCompra pedidos : pedido) {
+                                            if (itens != null) {
+                                                for (ItemDeCompra item : itens) {
                                         %>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <% Fornecedor fornecedor = new Fornecedor();
-                                                fornecedor = pedidos.getFornecedor();%>
-                                            <td><%=fornecedor.getNome()%></td>
-                                            <td><%=NumberFormat.getCurrencyInstance().format(pedidos.getTotal_pedido())%></td>
-                                            <td><%=pedidos.getData_pedido()%></td>
-                                            <td><%=pedidos.getStatus()%></td>
-                                            <td><a href="ControlePedidoCompra?acao=consulta&idPedido=<%=pedidos.getId()%>" ><i class="uk-icon-search"></i></a></td>
+                                            <td><%=item.getProduto().getCodigo_barra()%></td>
+                                            <td><%=item.getProduto().getDescricao()%></td>
+                                            <td><%=item.getQuantidade()%></td>
+                                            <td><%=NumberFormat.getCurrencyInstance().format(item.getTotalCompra())%></td>
                                         </tr>
 
                                         <%
@@ -72,8 +68,12 @@
                                         %>
                                     </tbody>
                                 </table>
+
                                 <p class="produtos button"> 
-                                    <a href="pedidos.jsp"> <input type="button" value="VOLTAR" /></a>
+                                    <input type="submit" value="ENVIAR" name="botao"/>
+                                </p>
+                                <p class="produtos button"> 
+                                    <a href="pedidoCompra.jsp"> <input type="button" value="VOLTAR" /></a>
                                 </p>
                             </form>
                         </div>

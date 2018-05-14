@@ -5,8 +5,10 @@
  */
 package Control;
 
+import Model.DAO.ItemDeCompraDAO;
 import Model.DAO.PedidoCompraDAO;
 import Model.Fornecedor;
+import Model.ItemDeCompra;
 import Model.PedidodeCompra;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 /**
  *
@@ -45,7 +48,20 @@ public class ControlePedidoCompra extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String acao = request.getParameter("acao");
+        HttpSession sessao = request.getSession();
+        if (acao.equals("consulta")){
+            PedidodeCompra pedido = new PedidodeCompra();
+            pedido.setId(parseInt(request.getParameter("idPedido")));
+            ItemDeCompraDAO pedidodao = new ItemDeCompraDAO();
+            List<ItemDeCompra> itens = new ArrayList<>();
+            itens = pedidodao.consultaItemPedido(pedido);
+            sessao.setAttribute("itens", itens);
+            sessao.setAttribute("pedido", request.getParameter("idPedido"));
+            request.getRequestDispatcher("/itenspedido.jsp").forward(request, response);
+            
+        }
+        
     }
 
     @Override
@@ -62,6 +78,11 @@ public class ControlePedidoCompra extends HttpServlet {
             sessao.setAttribute("pedidoCompra", listaPedido);
             request.getRequestDispatcher("/pedidoCompra.jsp").forward(request, response);
             
+        } else if (acao.equals("ENVIAR")){
+            PedidoCompraDAO pedidoCompraDAO = new PedidoCompraDAO();
+            pedidoCompraDAO.mudarStatus(parseInt((String) sessao.getAttribute("pedido")));
+            System.out.println("passou");
+            request.getRequestDispatcher("/pedidos.jsp").forward(request, response);
         }
     }
 

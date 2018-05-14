@@ -24,9 +24,8 @@ public class PedidoCompraDAO {
     private static final String LISTA_PED_COMP = "SELECT p.id, f.nome, p.totalPedido, p.dataPedido, p.status FROM pedidoDeCompra p, fornecedor f WHERE p.fornecedor = f.id and p.fornecedor = ? ORDER BY p.dataPedido";
     private static final String CHECK_PEDIDO = "SELECT * FROM pedidodecompra WHERE fornecedor = ? AND status = ?";
     private static final String INS_PEDIDO = "INSERT INTO pedidodecompra (id, fornecedor, datapedido, status) VALUES (DEFAULT, ?, CURRENT_TIMESTAMP, ?) returning id";
-
-    
     private static final String ATUALIZA_PEDIDO = "UPDATE pedidodecompra SET totalpedido = totalpedido + (SELECT valor FROM itemdecompra WHERE id = ?) WHERE id = ?";
+    private static final String ENVIA_PEDIDO = "UPDATE pedidodecompra SET status = ? WHERE id = ?";
     public List<PedidodeCompra> consultaPedidos(int fornecedor) {
         try {
 
@@ -104,4 +103,19 @@ public class PedidoCompraDAO {
             System.out.println("nao passou");
         }
     }
+
+    public void mudarStatus(int pedido) {
+        try{
+            Connection conexao = ConectaBanco.getConexao();
+            PreparedStatement pstmt = conexao.prepareStatement(ENVIA_PEDIDO);
+            pstmt.setString (1, "ENVIADO");
+            pstmt.setInt (2, pedido);
+            pstmt.execute();
+            pstmt.close();
+            conexao.close();
+        }catch (Exception e){
+            
+        }
+    }
+
 }

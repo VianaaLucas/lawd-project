@@ -21,10 +21,6 @@
         <servlet-class>Control.ControleAcesso</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EfetuarEntrada</servlet-name>
-        <servlet-class>Control.EfetuarEntrada</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ControleProduto</servlet-name>
         <servlet-class>Control.ControleProduto</servlet-class>
     </servlet>
@@ -63,10 +59,6 @@
     <servlet-mapping>
         <servlet-name>ControleAcesso</servlet-name>
         <url-pattern>/ControleAcesso</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EfetuarEntrada</servlet-name>
-        <url-pattern>/EfetuarEntrada</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ControleProduto</servlet-name>

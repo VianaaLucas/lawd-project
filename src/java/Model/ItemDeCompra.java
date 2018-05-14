@@ -3,6 +3,7 @@ package Model;
 
 public class ItemDeCompra {
 
+    private int id;
     private Long codigo;
     private Produto produto;
     private int quantidade;
@@ -33,4 +34,18 @@ public class ItemDeCompra {
         return total;
     }
 
+    public double getTotalCompra(){
+        this.total = this.quantidade * this.produto.getPreco_custo();
+        return total;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
 }
