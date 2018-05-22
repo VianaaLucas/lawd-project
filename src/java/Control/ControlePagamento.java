@@ -48,9 +48,9 @@ public class ControlePagamento extends HttpServlet {
             //recupera um carrinho de produtos da sessão
             Pedido carrinho = (Pedido) sessao.getAttribute("carrinho");
             //recupera o id do produto
-            int idProduto = Integer.parseInt(request.getParameter("idProduto"));
+            int idPagamento = Integer.parseInt(request.getParameter("idPagamento"));
             Pagamento pagamento = new Pagamento();
-            pagamento.setId(carrinho.getId());
+            pagamento.setId(idPagamento);
             carrinho.removerPagamento(pagamento);
             //carrega a pagina do carrinho de compras
             request.getRequestDispatcher("/pagamento.jsp").forward(request, response);

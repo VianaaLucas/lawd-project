@@ -5,12 +5,12 @@
         <servlet-class>Control.ControleLogin</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletSubCat</servlet-name>
-        <servlet-class>Control.ControleSubCategoria</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>loginUsuarioDAO</servlet-name>
         <servlet-class>Control.loginUsuarioDAO</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControleDesconto</servlet-name>
+        <servlet-class>Control.ControleDesconto</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ControleUsuario</servlet-name>
@@ -40,13 +40,13 @@
         <servlet-name>ControleCategoria</servlet-name>
         <servlet-class>Control.ControleCategoria</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControleSubCategoria</servlet-name>
+        <servlet-class>Control.ControleSubCategoria</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>
         <url-pattern>/ServletLogin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletSubCat</servlet-name>
-        <url-pattern>/ServletSubCat</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>loginUsuarioDAO</servlet-name>
@@ -79,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>ControleCategoria</servlet-name>
         <url-pattern>/ControleCategoria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControleSubCategoria</servlet-name>
+        <url-pattern>/ControleSubCategoria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControleDesconto</servlet-name>
+        <url-pattern>/ControleDesconto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

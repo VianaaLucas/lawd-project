@@ -9,7 +9,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <jsp:include page="head.jsp"/>
+    <head>
+        <meta charset="UTF-8" />
+        <title>LAWD - Efetuar Pedido</title>
+        <link rel="shortcut icon" href="../favicon.ico"> 
+        <link rel="stylesheet" type="text/css" href="Style/pdv.css" />
+        <link rel="stylesheet" href="css/uikit.css">
+        <script src="js/jquery.js"></script>
+        <script type="stylesheet" href="css/estilo.css"></script>
+    </head>
     <body>   
         <% Pedido pedido = (Pedido) session.getAttribute("carrinho");%>
         <div class="uk-container uk-container-center">

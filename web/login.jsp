@@ -50,7 +50,7 @@
                                 </p>
 
                                 <%
-                                    String msg = (String) request.getAttribute("msg");
+                                    String msg = (String) session.getAttribute("msg");
                                     if (msg != null) {
 
                                 %>

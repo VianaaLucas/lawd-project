@@ -28,6 +28,14 @@
             </header>
             <section>				
                 <div id="container_demo" >
+                    <%
+                        String msg = (String) request.getAttribute("msg");
+                        if (msg != null) {
+
+                    %>
+
+                    <font color="blue"><%=msg%></font>
+                    <%}%>
                     <a class="hiddenanchor" id="toregister"></a>
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
@@ -53,8 +61,10 @@
                             </form>
                         </div>
                     </div>
-                </div>  
-            </section>
+                </div>
         </div>
-    </body>
+    </div>  
+</section>
+</div>
+</body>
 </html>

@@ -7,9 +7,10 @@ package Control;
 
 import Model.Categoria;
 import Model.DAO.DescontoDAO;
+import Model.DAO.ProdutoDAO;
 import Model.Desconto;
-import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +43,23 @@ public class ControleDesconto extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String acao = (String) request.getParameter("acao");
+        if (acao.equals("forcadesconto")) {
+            Desconto desconto = new Desconto();
+            Categoria categoria = new Categoria();
+            categoria.setId(Integer.parseInt(request.getParameter("categoria")));
+            desconto.setCategoria(categoria);
+            desconto.setPercentualDeDesconto(Double.parseDouble(request.getParameter("desconto")));
+            DescontoDAO descontodao = new DescontoDAO();
+            boolean status = descontodao.desconto(desconto);
+            if (status == true) {
+                request.setAttribute("msg", "Desconto atribuido com sucesso!!!");
+                request.getRequestDispatcher("descontoCadastrar.jsp").forward(request, response);
+            } else {
+                request.setAttribute("msg", "Ocorreu uma falha ao atribuir o desconto!!!");
+                request.getRequestDispatcher("descontoCadastrar.jsp").forward(request, response);
+            }
+        }
     }
 
     @Override
@@ -55,12 +72,21 @@ public class ControleDesconto extends HttpServlet {
         desconto.setCategoria(categoria);
         desconto.setPercentualDeDesconto(Double.parseDouble(request.getParameter("porcentagem")));
         DescontoDAO descontodao = new DescontoDAO();
-        boolean status = descontodao.desconto(desconto);
-        if (status == true) {
-            request.setAttribute("msg", "Desconto atribuido com sucesso!!!");
-            request.getRequestDispatcher("descontoCadastrar.jsp").forward(request, response);
+        ProdutoDAO produtodao = new ProdutoDAO();
+
+        if (produtodao.verificaLucro(desconto) == true) {
+            boolean status = descontodao.desconto(desconto);
+            if (status == true) {
+                request.setAttribute("msg", "Desconto atribuido com sucesso!!!");
+                request.getRequestDispatcher("descontoCadastrar.jsp").forward(request, response);
+            } else {
+                request.setAttribute("msg", "Ocorreu uma falha ao atribuir o desconto!!!");
+                request.getRequestDispatcher("descontoCadastrar.jsp").forward(request, response);
+            }
         } else {
-            request.setAttribute("msg", "Ocorreu uma falha ao atribuir o desconto!!!");
+            request.setAttribute("msg", "lucro afetado");
+            request.setAttribute("percentual", desconto.getPercentualDeDesconto());
+            request.setAttribute("categoria", desconto.getCategoria().getId());
             request.getRequestDispatcher("descontoCadastrar.jsp").forward(request, response);
         }
     }

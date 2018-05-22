@@ -84,7 +84,7 @@
                             <tr>
                                 <td><%=pagamento.getTipo_pag()%></td>
                                 <td><%=NumberFormat.getCurrencyInstance().format(pagamento.getQuantia())%></td>
-                                <td><a href="ControlePagamento?acao=removePagamento&idProduto=<%=pagamento.getId()%>"><i class="uk-icon-trash"></i></a></td></tr>
+                                <td><a href="ControlePagamento?acao=removePagamento&idPagamento=<%=pagamento.getId()%>"><i class="uk-icon-trash"></i></a></td></tr>
                         </tbody>
                         <%
                                     }

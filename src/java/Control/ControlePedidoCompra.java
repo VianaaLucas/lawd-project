@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 /**
  *
@@ -36,7 +35,7 @@ public class ControlePedidoCompra extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ControlePedidoCompra</title>");            
+            out.println("<title>Servlet ControlePedidoCompra</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ControlePedidoCompra at " + request.getContextPath() + "</h1>");
@@ -50,18 +49,24 @@ public class ControlePedidoCompra extends HttpServlet {
             throws ServletException, IOException {
         String acao = request.getParameter("acao");
         HttpSession sessao = request.getSession();
-        if (acao.equals("consulta")){
+        if (acao.equals("consulta")) {
             PedidodeCompra pedido = new PedidodeCompra();
             pedido.setId(parseInt(request.getParameter("idPedido")));
             ItemDeCompraDAO pedidodao = new ItemDeCompraDAO();
             List<ItemDeCompra> itens = new ArrayList<>();
             itens = pedidodao.consultaItemPedido(pedido);
-            sessao.setAttribute("itens", itens);
-            sessao.setAttribute("pedido", request.getParameter("idPedido"));
-            request.getRequestDispatcher("/itenspedido.jsp").forward(request, response);
-            
+
+            if (!itens.isEmpty()) {
+                sessao.setAttribute("itens", itens);
+                sessao.setAttribute("pedido", request.getParameter("idPedido"));
+                request.getRequestDispatcher("/itenspedido.jsp").forward(request, response);
+            } else {
+                sessao.setAttribute("msg", "Este fornecedor não possui pedidos!!");
+                request.getRequestDispatcher("/pedidos.jsp").forward(request, response);
+            }
+
         }
-        
+
     }
 
     @Override
@@ -69,7 +74,7 @@ public class ControlePedidoCompra extends HttpServlet {
             throws ServletException, IOException {
         String acao = request.getParameter("botao");
         HttpSession sessao = request.getSession();
-        if (acao.equals("CONSULTAR")){
+        if (acao.equals("CONSULTAR")) {
             Fornecedor fornecedor = new Fornecedor();
             fornecedor.setId(parseInt(request.getParameter("fornecedor")));
             PedidoCompraDAO pedidoCompraDAO = new PedidoCompraDAO();
@@ -77,8 +82,8 @@ public class ControlePedidoCompra extends HttpServlet {
             listaPedido = pedidoCompraDAO.consultaPedidos(parseInt(request.getParameter("fornecedor")));
             sessao.setAttribute("pedidoCompra", listaPedido);
             request.getRequestDispatcher("/pedidoCompra.jsp").forward(request, response);
-            
-        } else if (acao.equals("ENVIAR")){
+
+        } else if (acao.equals("ENVIAR")) {
             PedidoCompraDAO pedidoCompraDAO = new PedidoCompraDAO();
             pedidoCompraDAO.mudarStatus(parseInt((String) sessao.getAttribute("pedido")));
             System.out.println("passou");

@@ -33,7 +33,7 @@
                 <a class="hiddenanchor" id="tologin"></a>
                 <div id="wrapper">
                     <div id="login" class="animate form">
-                        <form  action="ServletSubCat" autocomplete="on" method="POST"> 
+                        <form  action="ControleSubCategoria" autocomplete="on" method="POST"> 
                             <h1>SUB-CATEGORIA</h1> 
                             <%
                                 String msg = (String) request.getAttribute("msg");
@@ -47,7 +47,7 @@
                                 <label for="tipo" class="tipo" data-icon="" > Categoria: </label>
 
                                 <select class="form-control" id="selecao_categoria" name="categoria" title="categoria">
-                                    <option value="" selected="selected"> -- SELECIONE --</option>
+                                    <option value="" selected="selected" required="TRUE"> -- SELECIONE --</option>
                                 </select>										
                             </p>
                             <p> 

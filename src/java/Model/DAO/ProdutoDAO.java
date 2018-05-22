@@ -27,6 +27,7 @@ public class ProdutoDAO {
     private static final String INATIVAPRD = "UPDATE produto SET ativo = false WHERE codbar = ?";
     private static final String INSERTPROD = "INSERT INTO produto(descricao,codbar,precocusto,precovenda,categoria,subcat,fornecedor, estoque, qtdminima, qtdcompra) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?)";
     private static final String BAIXAESTOQUE = "UPDATE produto SET estoque = (SELECT estoque FROM produto WHERE id = ?) - ? where id = ?";
+    private static final String VERIFICA_LUCRO = "SELECT precocusto, precovenda FROM produto WHERE categoria = ? AND ativo = true";
 
     public boolean inativarProduto(Produto produto) {
         Connection conexao = null;
@@ -311,6 +312,26 @@ public class ProdutoDAO {
             return produto;
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    public boolean verificaLucro(Desconto desconto) {
+        try {
+            Connection conexao = ConectaBanco.getConexao();
+            PreparedStatement stmt = conexao.prepareStatement(VERIFICA_LUCRO);
+            stmt.setInt(1, desconto.getCategoria().getId());
+            ResultSet rs = stmt.executeQuery();
+            int cont = 0;
+            while (rs.next()) {
+                if ((rs.getDouble("precovenda") * (1 - desconto.getPercentualDeDesconto() / 100)) < rs.getDouble("precocusto")) {
+                    cont = cont + 1;
+                }
+            }
+            if (cont >= 1){
+                return false;
+            } else return true;
+        }catch (Exception e){
+            return false;
         }
     }
 }

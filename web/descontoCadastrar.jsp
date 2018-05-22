@@ -21,6 +21,7 @@
         <link rel="stylesheet" type="text/css" href="Style/animate-custom.css" />
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/subcat.js"></script>
+
     </head>
     <body>
         <div class="container">
@@ -37,14 +38,33 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form  action="DescontoProduto" autocomplete="on" METHOD="POST"> 
+                            <form  action="ControleDesconto" autocomplete="on" METHOD="POST"> 
                                 <h1>CADASTRAR DESCONTO	</h1> 
                                 <%
                                     String msg = (String) request.getAttribute("msg");
-                                    if (msg != null) {
-
+                                    if (msg == "lucro afetado") {
                                 %>
+                                <script language="javascript">
+                                    var r = confirm("Sua margem de lucro será afetada, deseja continuar?");
+                                    if (r == true) {
+                                        $.ajax({
+                                            url: "ControleDesconto",
+                                            type: 'GET',
+                                            data: {
+                                                acao: 'forcadesconto',
+                                                desconto: <%=request.getAttribute("percentual")%>,
+                                                categoria: <%=request.getAttribute("categoria")%>
+                                            },
 
+                                            error(e) {
+                                                console.err("DEU ERRO");
+                                            }
+                                        });
+                                    } else {
+                                        txt = "You pressed Cancel!";
+                                    }
+                                </script>
+                                <%} else if (msg != null) {%>
                                 <font color="blue"><%=msg%></font>
                                 <%}%>
                                 <p> 
