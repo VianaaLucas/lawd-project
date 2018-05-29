@@ -32,36 +32,24 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form  action="mysuperscript.php" autocomplete="on"> 
-                                <h1>CONSULTAR DESCONTO	</h1> 		
-
-                                <form  action="mysuperscript.php" autocomplete="on"> 	
-                                    <p> 
-                                        <label for="Categoria" class="Categoria" data-icon=""> Categoria: </label>
-
-                                        <select name="Categoria">
-                                            <option value=""></option>
-                                        </select>
-
-                                    </p>
-                                    <p> 
-                                        <label for="porcentagem" class="porcentagem" data-icon="" > Porcentagem: </label>
-                                        <input id="porcentagem" name="porcentagem" required="required" type="text" placeholder=""  disabled />
-                                    </p>
-
-
-
-                                </form>
-
-                                <p class="cadastrar button"> 
-                                    <input type="submit" value="CADASTRAR" /> 
+                            <form  action="ControleDesconto" autocomplete="on"> 
+                                <h1>CONSULTAR DESCONTO	</h1> 
+                                
+                                <p> 
+                                    <label for="Categoria" class="Categoria" data-icon=""> Categoria: </label>
+                                    <select name="Categoria">
+                                        <option value=""></option>
+                                    </select>
                                 </p>
-
+                                <p> 
+                                    <label for="porcentagem" class="porcentagem" data-icon="" > Porcentagem: </label>
+                                    <input id="porcentagem" name="porcentagem" required="required" type="text" placeholder=""  disabled />
+                                </p>
+                                <p class="excluir button"> 
+                                    <input type="submit" value="EXCLUIR" /> 
+                                </p>
                                 <p class="voltar button"> 
                                     <a href="descontoHome.html"> <input type="button" value="VOLTAR" /></a>
-
-
-
                             </form>
                         </div>				
                     </div>
