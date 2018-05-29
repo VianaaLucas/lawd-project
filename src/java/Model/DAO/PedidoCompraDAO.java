@@ -104,11 +104,11 @@ public class PedidoCompraDAO {
         }
     }
 
-    public void mudarStatus(int pedido) {
+    public void mudarStatus(int pedido, String status) {
         try{
             Connection conexao = ConectaBanco.getConexao();
             PreparedStatement pstmt = conexao.prepareStatement(ENVIA_PEDIDO);
-            pstmt.setString (1, "ENVIADO");
+            pstmt.setString (1, status);
             pstmt.setInt (2, pedido);
             pstmt.execute();
             pstmt.close();

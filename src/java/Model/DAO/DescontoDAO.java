@@ -22,6 +22,8 @@ public class DescontoDAO {
 
     public static final String INSERIR_DESCONTO = "INSERT INTO desconto (categoria, percentualdesconto, ativo) VALUES (?, ?, true)";
     public static final String CHECADESCONTO = "SELECT * FROM desconto WHERE categoria = ? AND ativo = true";
+    public static final String VERIFICADESCONTO = "SELECT * FROM desconto WHERE categoria = ? AND ativo = true";
+    public static final String INATIVADESCONTO = "UPDATE desconto SET ativo = FALSE WHERE categoria = ?";
 
     public boolean desconto(Desconto desconto) {
         Connection conexao = null;
@@ -42,14 +44,14 @@ public class DescontoDAO {
         Connection conexao = null;
         try {
             conexao = ConectaBanco.getConexao();
-            PreparedStatement stmt = conexao.prepareStatement("select * from desconto where categoria = ? and ativo = true");
+            PreparedStatement stmt = conexao.prepareStatement(VERIFICADESCONTO);
             stmt.setInt(1, cat);
             ResultSet resultado = stmt.executeQuery();
             Double precofinal = 0.0;
             while (resultado.next()) {
                 precofinal = preco - preco / 100 * resultado.getDouble("percentualdesconto");
             }
-            resultado.close();
+            stmt.close();
             conexao.close();
             return precofinal;
         } catch (SQLException e) {
@@ -57,18 +59,34 @@ public class DescontoDAO {
         }
     }
 
-    public boolean checaDesconto(Desconto desconto) {
+    public double checaDesconto(Desconto desconto) {
         try {
             Connection conexao = ConectaBanco.getConexao();
             PreparedStatement stmt = conexao.prepareStatement(CHECADESCONTO);
             stmt.setInt(1, desconto.getCategoria().getId());
-            ResultSet resultado = stmt.executeQuery();
-            if (resultado.next()){
-               return true; 
-            } else return false;
-            
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble("percentualDesconto");
+            } else {
+                return 0;
+            }
         } catch (SQLException ex) {
+            return 0;
+        }
+    }
+
+    public boolean inativaDesconto(Desconto desconto) {
+        try {
+            Connection conexao = ConectaBanco.getConexao();
+            PreparedStatement stmt = conexao.prepareStatement(INATIVADESCONTO);
+            stmt.setInt(1, desconto.getCategoria().getId());
+            stmt.execute();
+            stmt.close();
+            conexao.close();
+            return true;
+        } catch (SQLException erro1) {
             return false;
         }
     }
+
 }

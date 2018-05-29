@@ -6,6 +6,7 @@
 package Control;
 
 import Model.DAO.ItemDeCompraDAO;
+import Model.DAO.ParceiroDAO;
 import Model.DAO.PedidoCompraDAO;
 import Model.Fornecedor;
 import Model.ItemDeCompra;
@@ -85,8 +86,9 @@ public class ControlePedidoCompra extends HttpServlet {
 
         } else if (acao.equals("ENVIAR")) {
             PedidoCompraDAO pedidoCompraDAO = new PedidoCompraDAO();
-            pedidoCompraDAO.mudarStatus(parseInt((String) sessao.getAttribute("pedido")));
-            System.out.println("passou");
+            pedidoCompraDAO.mudarStatus(parseInt((String) sessao.getAttribute("pedido")), "ENVIADO");
+            ParceiroDAO parceirodao = new ParceiroDAO();
+            
             request.getRequestDispatcher("/pedidos.jsp").forward(request, response);
         }
     }

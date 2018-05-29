@@ -13,11 +13,21 @@ public class Desconto {
 
     private int id;
     private Categoria categoria;
+    private Produto produto;
     private double percentualDeDesconto;
     private double precoComDesconto;
     private double valorObtido;
 
     // setters and getteres 
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+    
     public int getId() {
         return id;
     }

@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -27,7 +28,7 @@ public class ProdutoDAO {
     private static final String INATIVAPRD = "UPDATE produto SET ativo = false WHERE codbar = ?";
     private static final String INSERTPROD = "INSERT INTO produto(descricao,codbar,precocusto,precovenda,categoria,subcat,fornecedor, estoque, qtdminima, qtdcompra) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?)";
     private static final String BAIXAESTOQUE = "UPDATE produto SET estoque = (SELECT estoque FROM produto WHERE id = ?) - ? where id = ?";
-    private static final String VERIFICA_LUCRO = "SELECT precocusto, precovenda FROM produto WHERE categoria = ? AND ativo = true";
+    private static final String VERIFICA_LUCRO = "SELECT descricao, precocusto, precovenda FROM produto WHERE categoria = ? AND ativo = true ORDER BY precovenda DESC limit 6";
 
     public boolean inativarProduto(Produto produto) {
         Connection conexao = null;
@@ -315,23 +316,35 @@ public class ProdutoDAO {
         }
     }
 
-    public boolean verificaLucro(Desconto desconto) {
+    public List<Desconto> verificaLucro(Desconto desconto) {
         try {
             Connection conexao = ConectaBanco.getConexao();
             PreparedStatement stmt = conexao.prepareStatement(VERIFICA_LUCRO);
             stmt.setInt(1, desconto.getCategoria().getId());
             ResultSet rs = stmt.executeQuery();
-            int cont = 0;
+            List<Desconto> listadesconto = new ArrayList<>();
             while (rs.next()) {
-                if ((rs.getDouble("precovenda") * (1 - desconto.getPercentualDeDesconto() / 100)) < rs.getDouble("precocusto")) {
-                    cont = cont + 1;
+                double descontoaplicado = (rs.getDouble("precovenda") - ((rs.getDouble("precovenda") * (desconto.getPercentualDeDesconto()))/100));
+                if (descontoaplicado < rs.getDouble("precocusto")) {
+                    Produto produto = new Produto();
+                    Desconto desc = new Desconto();
+                    Categoria categoria = new Categoria();
+                    categoria.setId(desconto.getCategoria().getId());
+                    produto.setPreco_custo(rs.getDouble("precocusto"));
+                    produto.setPreco_venda(rs.getDouble("precovenda"));
+                    produto.setDescricao(rs.getString("descricao"));
+                    desc.setProduto(produto);
+                    desc.setPercentualDeDesconto(desconto.getPercentualDeDesconto());
+                    desc.setPrecoComDesconto(descontoaplicado);
+                    desc.setCategoria(categoria);
+                    listadesconto.add(desc);
                 }
             }
-            if (cont >= 1){
-                return false;
-            } else return true;
+            if (listadesconto.isEmpty()){
+                return null;
+            } else return listadesconto;
         }catch (Exception e){
-            return false;
+            return null;
         }
     }
 }
