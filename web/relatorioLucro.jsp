@@ -1,17 +1,17 @@
- <%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
 <%-- 
-    Document   : relatorioVenda
-    Created on : 22/05/2018, 14:08:27
+    Document   : relatorioLucro
+    Created on : 30/05/2018, 21:01:19
     Author     : andre.albuquerque
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Relatorio Venda</title>
+        <title>Relatorio chartjs</title>
     </head>
     <body style="background:rgba(147, 184, 189,0.4)">
         <canvas class="line-chart" style="position: relative; height:40vh; width:50vw;background:rgba(147, 184, 189,0.2)"></canvas>
@@ -25,23 +25,23 @@
         //type,Data e options 
         
         var chartGraph = new Chart(ctx, {
-            type:'bar',
+            type:'line',
             data:{
                   labels:["Janeiro","Fevereiro","Marco","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
                   datasets:[
                       {
-                          label:"Taxa de Vendidos - 2018",
-                          data:[5,10,15,12,12,32,33,34,34,45,50,12],//trazer do banco a soma dos valores mensais de janeiro a dezembro de 2018 
+                          label:"Preco de Custo",
+                          data:[45,30,35,28,28,32,33,34,54,45,50,52],//trazer do banco valor de gasto por mes
                           borderwidth:5,
                           borderColor: 'rgba(255, 0, 0)',
-                          backgroundColor: 'rgba(255, 0, 0, 0.8)',
+                          backgroundColor: 'rgba(255, 0, 0, 0.1)',
                   },
                        {
-                          label:"Taxa de Vendidos - 2017",
-                          data:[4,8,10,10,10,30,33,30,34,40,48,10],//trazer do banco ""
+                          label:"Margen de Lucro",
+                          data:[50,38,37,38,30,35,43,40,64,50,58,65],//valor de venda total mensal 
                           borderwidth:5,
                           borderColor: 'rgb(204, 255, 255)',
-                          backgroundColor: 'rgba(204, 255, 255, 0.8)',
+                         
                   }
               ]
             },
@@ -49,7 +49,7 @@
                 title:{
                     display:true,
                     fontSize:20,
-                    text:"Relatorio Vendas Mensal",
+                    text:"Relatorio Lucro vs Custo mensal",
                 }
             }
         });
