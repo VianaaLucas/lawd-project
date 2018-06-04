@@ -18,6 +18,7 @@
         <link rel="stylesheet" type="text/css" href="Style/demo.css" />
         <link rel="stylesheet" type="text/css" href="Style/style.css" />
         <link rel="stylesheet" type="text/css" href="Style/animate-custom.css" />
+        <link href="css/uikit.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/estado_cidade.js"></script>
     </head>
@@ -180,8 +181,10 @@
                                 <p class="voltar button"> 
                                     <a href="parceirosHome.html"> <input type="button" value="VOLTAR" /> </a>
                                 </p>
+
                             </form>
-                        </div>				
+                        </div>	
+                        
                     </div>
                 </div>  
             </section>

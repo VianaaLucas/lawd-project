@@ -8,12 +8,14 @@ package Control;
 import Model.DAO.ItemDeCompraDAO;
 import Model.DAO.ParceiroDAO;
 import Model.DAO.PedidoCompraDAO;
+import Model.Email;
 import Model.Fornecedor;
 import Model.ItemDeCompra;
 import Model.PedidodeCompra;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.mail.HtmlEmail;
 
 /**
  *
@@ -86,9 +89,46 @@ public class ControlePedidoCompra extends HttpServlet {
 
         } else if (acao.equals("ENVIAR")) {
             PedidoCompraDAO pedidoCompraDAO = new PedidoCompraDAO();
+            PedidodeCompra pedidoCompra = new PedidodeCompra();
+            ParceiroDAO parceiroDAO = new ParceiroDAO();
+            List<ItemDeCompra> itemdecompra = new ArrayList<>();
+            ItemDeCompraDAO itemdecompradao = new ItemDeCompraDAO();
             pedidoCompraDAO.mudarStatus(parseInt((String) sessao.getAttribute("pedido")), "ENVIADO");
-            ParceiroDAO parceirodao = new ParceiroDAO();
-            
+            pedidoCompra = pedidoCompraDAO.consultaPedidoPorID(parseInt((String) sessao.getAttribute("pedido")));
+            pedidoCompra.setFornecedor(parceiroDAO.consultaFornPorID(pedidoCompra.getFornecedor().getId()));
+            itemdecompra = itemdecompradao.consultaItemPedido(pedidoCompra);
+            Email email = new Email();
+            email.setNomeDestinatario(pedidoCompra.getFornecedor().getNome());
+            email.setEmailDestinatario(pedidoCompra.getFornecedor().getEmail());
+            email.setAssunto("Pedido de Compras - LAWD Group");
+            email.setMensagem("<html><h2>Caro fornecedor, </h2><br/>");
+            email.setMensagem(email.getMensagem() + "<h2>Segue nosso pedido de compras:</h2><br/></html>");
+            email.setMensagem(email.getMensagem() + "<table>");
+            email.setMensagem(email.getMensagem() + "<thead>");
+            email.setMensagem(email.getMensagem() + "<tr>");
+            email.setMensagem(email.getMensagem() + "<th>Código</th>");
+            email.setMensagem(email.getMensagem() + "<th>Descrição</th>  ");
+            email.setMensagem(email.getMensagem() + "<th>Quantidade</th>");
+            email.setMensagem(email.getMensagem() + "<th>Valor</th>");
+            email.setMensagem(email.getMensagem() + "</tr>");
+            for (ItemDeCompra itens : itemdecompra) {
+                email.setMensagem(email.getMensagem() + "</thead>");
+                email.setMensagem(email.getMensagem() + "<tbody>");
+                email.setMensagem(email.getMensagem() + "<tr>");
+                email.setMensagem(email.getMensagem() + "<td>" + itens.getProduto().getCodigo_barra() + "</td>");
+                email.setMensagem(email.getMensagem() + "<td>" + itens.getProduto().getDescricao() + "</td>");
+                email.setMensagem(email.getMensagem() + "<td>" + itens.getQuantidade() + "</td>");
+                email.setMensagem(email.getMensagem() + "<td>" + NumberFormat.getCurrencyInstance().format(itens.getTotalCompra()) + "</td>");
+                email.setMensagem(email.getMensagem() + "</tr>");
+            }
+            email.setMensagem(email.getMensagem() + "</tbody>");
+            email.setMensagem(email.getMensagem() + "</table>");
+
+            if (email.enviar()) {
+                System.out.println("Enviado com sucesso");
+            } else {
+                System.out.println("Nao enviou");
+            }
             request.getRequestDispatcher("/pedidos.jsp").forward(request, response);
         }
     }

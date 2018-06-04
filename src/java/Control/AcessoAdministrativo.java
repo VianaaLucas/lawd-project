@@ -36,7 +36,7 @@ public class AcessoAdministrativo implements Filter {
         HttpSession sessaoUsuario = ((HttpServletRequest) request).getSession();
         Usuario usuario = (Usuario) sessaoUsuario.getAttribute("usuarioAutenticado");
 
-        if (usuario != null & usuario.getPerfil().equals(PerfilDeAcesso.GERENTE)) {
+        if (usuario != null & usuario.getPerfil().equals(PerfilDeAcesso.ADMINISTRADOR)) {
             chain.doFilter(request, response);
         } else {
             ((HttpServletResponse) response).sendRedirect("../home.jsp");

@@ -85,6 +85,7 @@ public class ProdutoDAO {
             categoria.setId(rs.getInt("categoria"));
             subcategoria.setId(rs.getInt("subcat"));
             fornecedor.setId(rs.getInt("fornecedor"));
+            produto.setId(rs.getInt("id"));
             produto.setDescricao(rs.getString("descricao"));
             produto.setPreco_venda(rs.getDouble("precovenda"));
             produto.setPreco_custo(rs.getDouble("precocusto"));

@@ -59,7 +59,7 @@
                             </p>
 
                             <p class="admSys button"> 
-                                <a href="admin/cadastro_usuario.jsp"> <input type="button" value="ADMINISTRAÇÃO DE SISTEMA" /></a> 
+                                <a href="admin/cadastro_usuario.jsp"> <input type="button" value="ADM SISTEMA" /></a> 
                             </p>
 
                             <p class="Sair button"> 

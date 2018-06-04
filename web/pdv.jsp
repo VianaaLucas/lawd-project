@@ -13,6 +13,8 @@
     <body>   
         <% Pedido pedido = (Pedido) session.getAttribute("carrinho");%>
         <div class="uk-container uk-container-center">
+            <a href="home.jsp" class="uk-icon-large uk-icon-arrow-left uk-icon-button"></a>
+            <a href="home.jsp" class="uk-icon-large uk-icon-home uk-icon-button"></a>
             <div class="uk-grid">
                 <div class="uk-width-1-1">
                     <form class="uk-form uk-margin-large-top" action="ControleCarrinho" autocomplete="on" Method="POST">
@@ -85,6 +87,7 @@
                             </tbody>
                         </table>
                         <input class="uk-button uk-button-large uk-button-success uk-width-1-1" type="submit" name="botao" value="FINALIZAR">
+                        <input class="uk-button uk-button-large uk-button-danger uk-width-1-1" type="submit" name="botao" value="CANCELAR">
                     </form>
                 </div>
             </div>

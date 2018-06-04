@@ -54,15 +54,15 @@ public class PedidoDAO {
                     if (numeropedido == 0) {
                         numeropedido = pedidodao.criaPedido(produto);
                     }
-                    int numeroitem = idcDAO.gravarItemCompra(numeropedido, item, produto);
-                    pedidodao.atualizavalor(numeropedido, numeroitem);
+                    idcDAO.gravarItemCompra(numeropedido, item, produto);
+                    double valorpedido = idcDAO.calculaTotal(numeropedido);
+                    pedidodao.atualizavalor(numeropedido, valorpedido);
                 }
             }
             return idPedido;
         } catch (Exception e) {
             return 0;
         }
-            
 
     }
 
@@ -78,7 +78,7 @@ public class PedidoDAO {
             pstmt.close();
             conexao.close();
         } catch (SQLException e) {
-            
+
         }
     }
 

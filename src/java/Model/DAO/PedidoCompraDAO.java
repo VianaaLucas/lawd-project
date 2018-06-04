@@ -24,8 +24,10 @@ public class PedidoCompraDAO {
     private static final String LISTA_PED_COMP = "SELECT p.id, f.nome, p.totalPedido, p.dataPedido, p.status FROM pedidoDeCompra p, fornecedor f WHERE p.fornecedor = f.id and p.fornecedor = ? ORDER BY p.dataPedido";
     private static final String CHECK_PEDIDO = "SELECT * FROM pedidodecompra WHERE fornecedor = ? AND status = ?";
     private static final String INS_PEDIDO = "INSERT INTO pedidodecompra (id, fornecedor, datapedido, status) VALUES (DEFAULT, ?, CURRENT_TIMESTAMP, ?) returning id";
-    private static final String ATUALIZA_PEDIDO = "UPDATE pedidodecompra SET totalpedido = totalpedido + (SELECT valor FROM itemdecompra WHERE id = ?) WHERE id = ?";
+    private static final String ATUALIZA_PEDIDO = "UPDATE pedidodecompra SET totalpedido = ? WHERE id = ?";
     private static final String ENVIA_PEDIDO = "UPDATE pedidodecompra SET status = ? WHERE id = ?";
+    private static final String CONS_PEDIDO = "SELECT * FROM pedidodecompra WHERE id = ?";
+    
     public List<PedidodeCompra> consultaPedidos(int fornecedor) {
         try {
 
@@ -87,17 +89,17 @@ public class PedidoCompraDAO {
 
     }
 
-    public void atualizavalor(int numeropedido, int numeroitem) {
+    public void atualizavalor(int numeropedido, double valor) {
 
         try {
             Connection conexao = ConectaBanco.getConexao();
             PreparedStatement pstmt = conexao.prepareStatement(ATUALIZA_PEDIDO);
-            pstmt.setInt (1, numeroitem);
-            pstmt.setInt (2, numeropedido);
+            pstmt.setDouble(1, valor);
+            pstmt.setInt(2, numeropedido);
             pstmt.execute();
             pstmt.close();
             conexao.close();
-            
+
         } catch (SQLException e) {
             SQLException erro = e;
             System.out.println("nao passou");
@@ -105,16 +107,41 @@ public class PedidoCompraDAO {
     }
 
     public void mudarStatus(int pedido, String status) {
-        try{
+        try {
             Connection conexao = ConectaBanco.getConexao();
             PreparedStatement pstmt = conexao.prepareStatement(ENVIA_PEDIDO);
-            pstmt.setString (1, status);
-            pstmt.setInt (2, pedido);
+            pstmt.setString(1, status);
+            pstmt.setInt(2, pedido);
             pstmt.execute();
             pstmt.close();
             conexao.close();
-        }catch (Exception e){
-            
+        } catch (Exception e) {
+
+        }
+    }
+
+    public PedidodeCompra consultaPedidoPorID(int codigo) {
+        try {
+            Connection conexao = ConectaBanco.getConexao();
+            PreparedStatement pstmt = conexao.prepareStatement(CONS_PEDIDO);
+            pstmt.setInt(1, codigo);
+            ResultSet rs = pstmt.executeQuery();
+            PedidodeCompra pedido = new PedidodeCompra();
+            if (rs.next()) {
+                pedido.setId(rs.getInt("id"));
+                Fornecedor fornecedors = new Fornecedor();
+                fornecedors.setId(rs.getInt("fornecedor"));
+                pedido.setFornecedor(fornecedors);
+                pedido.setTotal_pedido(rs.getDouble("totalPedido"));
+                pedido.setData_pedido(rs.getDate("dataPedido"));
+                pedido.setStatus(rs.getString("status"));
+            }
+            pstmt.close();
+            conexao.close();
+            return pedido;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

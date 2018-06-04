@@ -1,7 +1,10 @@
 package Model.DAO;
 
+import Model.Cidade;
 import Model.ClienteFisico;
 import Model.ClienteJuridico;
+import Model.Endereco;
+import Model.Estado;
 import Model.Fornecedor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,13 +15,14 @@ import java.util.ArrayList;
 public class ParceiroDAO {
 
     private static final String LISTA_TODOS = "SELECT id, nome FROM fornecedor ORDER BY nome";
+    private static final String CONSULTAFORNECEDOR = "SELECT * FROM fornecedor WHERE id = ?";
+    private static final String CADASTRAFORNECEDOR = "INSERT INTO fornecedor (nome, telefone, celular, email, cep, numero, complemento, rua, cidade, estado, cnpj, ie, razao_social, pedido_minimo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
     public ArrayList<Fornecedor> lista() {
         try {
-
             Connection conexao = ConectaBanco.getConexao();
             PreparedStatement pstmt = conexao.prepareStatement(LISTA_TODOS);
             ResultSet rs = pstmt.executeQuery();
-
             ArrayList<Fornecedor> listaCategorias = new ArrayList<>();
             while (rs.next()) {
                 Fornecedor fornecedor = new Fornecedor();
@@ -26,14 +30,12 @@ public class ParceiroDAO {
                 fornecedor.setNome(rs.getString("nome"));
                 listaCategorias.add(fornecedor);
             }
-
             return listaCategorias;
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-    
+
     public boolean cadastrarClienteJuridico(ClienteJuridico cliente) {
         Connection conexao = null;
         try {
@@ -95,10 +97,8 @@ public class ParceiroDAO {
 
     public boolean cadastrarFornecedor(Fornecedor fornecedor) {
         try {
-
             Connection conexao = ConectaBanco.getConexao();
-
-            PreparedStatement stmt = conexao.prepareStatement("INSERT INTO fornecedor (nome, telefone, celular, email, cep, numero, complemento, rua, cidade, estado, cnpj, ie, razao_social, pedido_minimo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            PreparedStatement stmt = conexao.prepareStatement(CADASTRAFORNECEDOR);
             stmt.setString(1, fornecedor.getNome());
             stmt.setString(2, fornecedor.getTelefone());
             stmt.setString(3, fornecedor.getCelular());
@@ -122,5 +122,41 @@ public class ParceiroDAO {
         }
     }
 
-    
+    public Fornecedor consultaFornPorID(int id) {
+        try {
+            Connection conexao = ConectaBanco.getConexao();
+            PreparedStatement stmt = conexao.prepareStatement(CONSULTAFORNECEDOR);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            Fornecedor fornecedor = new Fornecedor();
+            if (rs.next()) {
+                fornecedor.setId(rs.getInt("id"));
+                fornecedor.setNome(rs.getString("nome"));
+                fornecedor.setTelefone(rs.getString("telefone"));
+                fornecedor.setCelular(rs.getString("celular"));
+                fornecedor.setEmail(rs.getString("email"));
+                Endereco endereco = new Endereco();
+                endereco.setCep(rs.getInt("cep"));
+                Cidade cidade = new Cidade();
+                cidade.setId(rs.getInt("cidade"));
+                Estado estado = new Estado();
+                estado.setId(rs.getInt("estado"));
+                cidade.setEstado(estado);
+                endereco.setCidade(cidade);
+                endereco.setEstado(estado);
+                endereco.setNumero(rs.getInt("numero"));
+                endereco.setComplemento(rs.getString("complemento"));
+                endereco.setRua(rs.getString("rua"));
+                fornecedor.setEndereco(endereco);
+                fornecedor.setCnpj(rs.getString("cnpj"));
+                fornecedor.setIe(rs.getString("ie"));
+                fornecedor.setRazao_social(rs.getString("razao_social"));
+                fornecedor.setPedido_minimo(rs.getDouble("pedido_minimo"));
+            }
+            return fornecedor;
+        } catch (SQLException erro) {
+            return null;
+        }
+
+    }
 }

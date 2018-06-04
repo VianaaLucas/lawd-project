@@ -5,6 +5,7 @@
     Editor     : LucasViana
 --%>
 
+<%@page import="Model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,11 +21,22 @@
         <link rel="stylesheet" type="text/css" href="Style/demo.css" />
         <link rel="stylesheet" type="text/css" href="Style/style.css" />
         <link rel="stylesheet" type="text/css" href="Style/animate-custom.css" />
+        <link href="css/uikit.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/produto.js"></script>
     </head>
     <body>
         <div class="container">
+            <%
+       Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
+       if (usuario != null) {
+            %>
+            <a href="home.jsp" class="uk-icon-medium uk-icon-user"></a> <%= usuario.getUsuario()%>
+            <% } %>
+            <a href="home.jsp" class="uk-icon-large uk-icon-arrow-left uk-icon-button"></a>
+            <a href="home.jsp" class="uk-icon-large uk-icon-home uk-icon-button"></a>
+            <a href="home.jsp" class="uk-icon-large uk-icon-power-off uk-icon-button"></a>
+
             <header>
                 <h1>LAWD <span>PREENCHA OS DADOS</span></h1>
 
@@ -101,6 +113,8 @@
                                 </p>
                                 <p class="voltar button"> 
                                     <a href="produtosHome.html"> <input type="button" value="VOLTAR" /></a>
+                                </p>
+
                             </form>
                         </div>				
                     </div>
