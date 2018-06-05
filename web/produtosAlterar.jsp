@@ -92,7 +92,7 @@
                                     <input type="submit" name="botao" id="botao" value="INATIVAR"/> 
                                 </p>
                                 <p class="voltar button"> 
-                                    <a href="produtosConsultar.html"> <input type="button" value="VOLTAR" /></a>
+                                    <a href="produtosConsultar.jsp"> <input type="button" value="VOLTAR" /></a>
                                 </p>
                             </form>
                         </div>				

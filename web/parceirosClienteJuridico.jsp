@@ -1,9 +1,12 @@
+<%-- 
+    Document   : parceirosClienteFisico
+    Created on : 04/06/2018, 18:00:53
+    Author     : lucas
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<html>
     <head>
         <meta charset="UTF-8" />
         <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
@@ -20,7 +23,7 @@
     <body>
         <div class="container">
             <header>
-                <h1>LAWD <span>FORNECEDORES</span></h1>
+                <h1>LAWD <span>CLIENTE JURÍDICO</span></h1>
                 <!--<nav class="codrops-demos">
                         
                 </nav>-->
@@ -35,7 +38,7 @@
                             <form  action="mysuperscript.php" autocomplete="on"> 
                                 <h1>PARCEIROS</h1> 
                                 <p class="cadastrar button"> 
-                                    <a href="parceirosCadForn.jsp"> <input type="button" value="CADASTRAR" /></a>  
+                                    <a href="parceirosCadClienteJuridico.jsp"> <input type="button" value="CADASTRAR" /></a>  
                                 </p>
 
                                 <p class="consultar button"> 

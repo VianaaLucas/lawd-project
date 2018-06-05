@@ -1,7 +1,7 @@
 <%-- 
-    Document   : desconto
-    Created on : 25/11/2017, 17:25:27
-    Author     : andre.albuquerque
+    Document   : descontoConsultar
+    Created on : 04/06/2018, 16:12
+    Author     : lucas
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,7 +10,7 @@
     <head>
         <meta charset="UTF-8" />
         <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
-        <title>LAWD - Cadastrar Desconto </title>
+        <title>LAWD - Consultar Desconto</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <meta name="description" content="Login and Registration Form with HTML5 and CSS3" />
         <meta name="keywords" content="html5, css3, form, switch, animation, :target, pseudo-class" />
@@ -20,16 +20,12 @@
         <link rel="stylesheet" type="text/css" href="Style/style.css" />
         <link rel="stylesheet" type="text/css" href="Style/animate-custom.css" />
         <script type="text/javascript" src="js/jquery.js"></script>
-        <script type="text/javascript" src="js/desconto.js"></script>
-
+        <script type="text/javascript" src="js/descontoConsultar.js"></script>
     </head>
     <body>
         <div class="container">
             <header>
                 <h1>LAWD <span> </span></h1>
-                <!--<nav class="codrops-demos">
-                        
-                </nav>-->
             </header>
             <section>				
                 <div id="container_demo" >
@@ -38,48 +34,26 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form  action="ControleDesconto" autocomplete="on" METHOD="POST"> 
-                                <h1>CADASTRAR DESCONTO	</h1> 
+                            <form  action="ControleDesconto" autocomplete="on" method="POST"> 
+                                <h1>CONSULTAR DESCONTO	</h1> 
                                 <%
                                     String msg = (String) request.getAttribute("msg");
-                                    if (msg == "lucro afetado") {
-                                        
-                                %>
-                                <script language="javascript">
-                                    var r = confirm("Sua margem de lucro será afetada, deseja continuar?");
-                                    if (r == true) {
-                                        $.ajax({
-                                            url: "ControleDesconto",
-                                            type: 'GET',
-                                            data: {
-                                                acao: 'forcadesconto',
-                                                desconto: <%=request.getAttribute("percentual")%>,
-                                                categoria: <%=request.getAttribute("categoria")%>
-                                            },
-
-                                            error(e) {
-                                                console.err("DEU ERRO");
-                                            }
-                                        });
-                                    } else {
-                                        txt = "You pressed Cancel!";
-                                    }
-                                </script>
-                                <%} else if (msg != null) {%>
+                                    if (msg != null) {%>
                                 <font color="blue"><%=msg%></font>
                                 <%}%>
                                 <p> 
                                     <label for="Categoria" class="Categoria" data-icon=""> Categoria: </label>
-                                    <select name="selecao_categoria" id="selecao_categoria">
+                                    <input id="hcategoria" name="hcategoria" type="text" value="<%= request.getAttribute("categoria")%>" hidden/>
+                                    <select name="selecao_categoria" id="selecao_categoria" disabled>
                                         <option value=""></option>
                                     </select>
                                 </p>
                                 <p> 
                                     <label for="porcentagem" class="porcentagem" data-icon="" > Porcentagem: </label>
-                                    <input id="porcentagem" name="porcentagem" required="required" type="text" placeholder="" />
+                                    <input id="porcentagem" name="porcentagem" required="required" type="text" placeholder="" disabled value="<%=request.getAttribute("porcentual")%>" />
                                 </p>
-                                <p class="cadastrar button"> 
-                                    <input type="submit" name="botao" value="CADASTRAR" /> 
+                                <p class="CONSULTAR button"> 
+                                    <input type="submit" name="botao" value="INATIVAR" /> 
                                 </p>
                                 <p class="voltar button"> 
                                     <a href="descontoHome.html"> <input type="button" value="VOLTAR" /></a>

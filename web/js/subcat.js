@@ -1,92 +1,116 @@
 $("document").ready(function () {
 
-    //apos o load da pagina
-    carregaSelecaoCategoria();
+//apos o loaddapagina
+    carregaSelecaoDeCategoria();
 
-    function carregaSelecaoCategoria() {
+    function carregaSelecaoDeCategoria() {
         $.ajax({
             // url o recurso no servidor
             url: "ControleSubCategoria",
-            type: 'GET',
-            // tipo de retorno
-            dataType: "json",
-            //parametros da requisição
-            data: {
-                acao: 'listacategoria'
-            },
-            // função para tratar o retorno
-            success: function (json) {
-
-                console.log(json);
-
-                // preenche as options
-                for (i = 0; i < json.length; i++) {
-                    var option = "<option value=" + json[i].id + ">" + json[i].nome + "</option>";
-                    $("#selecao_categoria").append(option);
-                }
-            },
-
-            error: function (xhr, status, errorThrown) {
-                alert("Ops!, Aconteu um erro na requisição!!!!");
-                console.log("Error: " + errorThrown);
-                console.log("Status: " + status);
-
-            },
-            complete: function (xhr, status) {
-                console.log("The request is complete!");
-            }
-
-        });//fim o ajax
-
-    }
-    $("#selecao_categoria").change(function () {
-        //recupera o valor(id) de categoria
-        var idcategoria = $("#selecao_categoria").val();
-
-        $.ajax({
-            // url o recurso no servidor
-            url: "ControleDesconto",
             type: 'GET',
             // tipoderetorno
             dataType: "json",
             //parametrosdarequisição
             data: {
-                acao: 'listaCidadesParaEstado',
-                estado: idcategoria
+                acao: 'listacategoria'
             },
-
             // funçãoparatratar o retorno
             success: function (json) {
-                //listaos options 
-                $("#porcentagem").empty();
 
+                console.log(json);
                 // preenche as options
-                document.getElementById('porcentagem').value = json[1]
-                ;
                 for (i = 0; i < json.length; i++) {
 
                     var option = "<option value=" + json[i].id + ">" + json[i].nome + "</option>";
-
-                    $("#cidade").append(option);
-
+                    $("#categoria").append(option);
                 }
             },
+            error: function (xhr, status, errorThrown) {
+                alert("Ops!, Aconteu um erro na requisição de categoria!");
+                console.log("Error: " + errorThrown);
+                console.log("Status: " + status);
+            },
+            complete: function (xhr, status) {
+                console.log("The request of 'Categoria' is complete!");
 
+            }
+        }); //fim o ajax
+    }
+
+    function carregaSelecaoDeFornecedor() {
+        $.ajax({
+            // url o recurso no servidor
+            url: "ControleSubCategoria",
+            type: 'GET',
+            // tipoderetorno
+            dataType: "json",
+            //parametrosdarequisição
+            data: {
+                acao: 'listafornecedor'
+            },
+            // funçãoparatratar o retorno
+            success: function (json) {
+
+                console.log(json);
+                // preenche as options
+                for (i = 0; i < json.length; i++) {
+
+                    var option = "<option value=" + json[i].id + ">" + json[i].nome + "</option>";
+                    $("#fornecedor").append(option);
+                }
+            },
             error: function (xhr, status, errorThrown) {
                 alert("Ops!, Aconteu um erro na requisição!");
                 console.log("Error: " + errorThrown);
                 console.log("Status: " + status);
-
             },
             complete: function (xhr, status) {
-                console.log("The request is complete!");
+                console.log("The request of 'Fornecedor' is complete!");
+            }
+
+        }); //fim o ajax
+    }
+
+
+
+//quando a seleçãomarca for alterada	
+    $("#categoria").change(function () {
+//recupera o valor(id) demarca
+        var idcategoria = $("#categoria").val();
+        $.ajax({
+            // url o recurso no servidor
+            url: "ControleProduto",
+            type: 'GET',
+            // tipoderetorno
+            dataType: "json",
+            //parametrosdarequisição
+            data: {
+                acao: 'listasubcategoria',
+                categoria: idcategoria
+            },
+            // funçãoparatratar o retorno
+            success: function (json) {
+                //listaos options 
+                $("#subcategoria").empty();
+                $("#subcategoria").append("<option> -- Selecione -- </option>");
+                // preenche as options
+                for (i = 0; i < json.length; i++) {
+
+                    var option = "<option value=" + json[i].id + ">" + json[i].nome + "</option>";
+                    $("#subcategoria").append(option);
+                }
+            },
+            error: function (xhr, status, errorThrown) {
+                alert("Ops!, Aconteu um erro na requisição de SubCategoria!");
+                console.log("Error: " + errorThrown);
+                console.log("Status: " + status);
+            },
+            complete: function (xhr, status) {
+                console.log("The request of 'SubCategoria' is complete!");
             }
 
         });//fim o ajax
 
     });
-    
-    
+
 });
-
-

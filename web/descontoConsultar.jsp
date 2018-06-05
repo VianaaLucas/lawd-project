@@ -20,7 +20,7 @@
         <link rel="stylesheet" type="text/css" href="Style/style.css" />
         <link rel="stylesheet" type="text/css" href="Style/animate-custom.css" />
         <script type="text/javascript" src="js/jquery.js"></script>
-        <script type="text/javascript" src="js/subcat.js"></script>
+        <script type="text/javascript" src="js/desconto.js"></script>
     </head>
     <body>
         <div class="container">
@@ -37,7 +37,7 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form  action="ControleDesconto" autocomplete="on"> 
+                            <form  action="ControleDesconto" autocomplete="on" method="POST"> 
                                 <h1>CONSULTAR DESCONTO	</h1> 
                                 <%
                                     String msg = (String) request.getAttribute("msg");
@@ -50,12 +50,8 @@
                                         <option value=""></option>
                                     </select>
                                 </p>
-                                <p> 
-                                    <label for="porcentagem" class="porcentagem" data-icon="" > Porcentagem: </label>
-                                    <input id="porcentagem" name="porcentagem" required="required" type="text" placeholder=""  disabled />
-                                </p>
-                                <p class="excluir button"> 
-                                    <input type="submit" name="botao" value="EXCLUIR" /> 
+                                <p class="CONSULTAR button"> 
+                                    <input type="submit" name="botao" value="CONSULTAR" /> 
                                 </p>
                                 <p class="voltar button"> 
                                     <a href="descontoHome.html"> <input type="button" value="VOLTAR" /></a>

@@ -46,6 +46,7 @@ public class ControleSubCategoria extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
             String acao = request.getParameter("acao");
@@ -57,7 +58,6 @@ public class ControleSubCategoria extends HttpServlet {
                 out.write(listaJSON);
             } else if (acao.equals("listasubcategoria")) {
                 int idcat = Integer.parseInt(request.getParameter("categoria"));
-
                 //SubCategoria subcat = new SubCategoria();
                 SubCatDAO subdao = new SubCatDAO();
                 Categoria cat = new Categoria(idcat);
@@ -77,12 +77,11 @@ public class ControleSubCategoria extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         SubCategoria subcat = new SubCategoria();
         subcat.setCategoria(parseInt(request.getParameter("categoria")));
         subcat.setNome(request.getParameter("descricao").toString());
-
         SubCatDAO subcatDAO = new SubCatDAO();
-
         boolean retorno;
         retorno = subcatDAO.cadastrar(subcat);
 

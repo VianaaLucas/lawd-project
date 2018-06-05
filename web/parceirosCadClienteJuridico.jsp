@@ -1,9 +1,8 @@
 <%-- 
-    Document   : parceirosCadForn
-    Created on : 06/04/2018, 17:11:04
+    Document   : parceirosCadClienteJuridico
+    Created on : 04/06/2018, 17:59:05
     Author     : lucas
 --%>
-
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,7 +24,7 @@
     <body>
         <div class="container">
             <header>
-                <h1>LAWD <span>CADASTRAR FORNECEDOR</span></h1>
+                <h1>LAWD <span>CADASTRAR CLIENTE JURIDICO</span></h1>
 
             </header>
             <section>				
@@ -71,16 +70,7 @@
                                                    else
                                                        return false;"/>
                                 </p>
-                                
-                                <p> 
-                                    <label for="PedidoMinimo" class="PedidoMinimo" data-icon="" > Pedido Mínimo: </label>
-                                    <input id="PedidoMinimo" name="pedidoMinimo" required="required" type="text" placeholder=""
-                                           onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
-                                                       return true;
-                                                   else
-                                                       return false;"/>
-                                </p>
-
+                               
                                 <p> 
                                     <label for="telefone" class="telefone" > Telefone: </label>
                                     <input id="telefone" name="telefone" required="required" type="text" placeholder=""
@@ -148,11 +138,11 @@
                                 </p>
 
                                 <p class="cadastrar button"> 
-                                    <input type="submit" name="botao" value="CADASTRAR FORNECEDOR" /> 
+                                    <input type="submit" name="botao" value="CADASTRAR CLIENTE JURIDICO" /> 
                                 </p>
 
                                 <p class="voltar button"> 
-                                    <a href="parceirosFornecedor.html"> <input type="button" value="VOLTAR" /> </a>
+                                    <a href="parceirosClienteJuridico.jsp"> <input type="button" value="VOLTAR" /> </a>
                                 </p>
                             </form>
                         </div>				
@@ -162,3 +152,4 @@
         </div>
     </body>
 </html>
+

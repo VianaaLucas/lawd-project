@@ -1,9 +1,8 @@
 <%-- 
-    Document   : parceirosCadForn
-    Created on : 06/04/2018, 17:11:04
+    Document   : parceirosCadClienteFisico
+    Created on : 04/06/2018, 17:23:09
     Author     : lucas
 --%>
-
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,7 +24,7 @@
     <body>
         <div class="container">
             <header>
-                <h1>LAWD <span>CADASTRAR FORNECEDOR</span></h1>
+                <h1>LAWD <span>CADASTRAR CLIENTE FISICO</span></h1>
 
             </header>
             <section>				
@@ -45,42 +44,26 @@
                                 <font color="blue"><%=msg%></font>
                                 <%}%>
                                 <p> 
-                                    <label for="razaoSocial" class="razaoSocial" data-icon="" > Razão Social: </label>
-                                    <input id="razaoSocial" name="razaoSocial" required="required" type="text" placeholder=""/>
+                                    <label for="nome" class="nome" data-icon="" > Nome: </label>
+                                    <input id="nome" name="nome" required="required" type="text" placeholder=""/>
                                 </p>
 
                                 <p> 
-                                    <label for="nomeFant" data-icon="" > Nome Fantasia: </label>
-                                    <input id="nomeFant" name="nomeFant" required="required" type="text" placeholder=""/>
-                                </p>
-
-                                <p> 
-                                    <label for="CNPJ" class="CNPJ" data-icon="" > CNPJ: </label>
-                                    <input id="CNPJ" name="CNPJ" required="required" type="text" placeholder=""
+                                    <label for="CPF" class="CPF" data-icon="" > CPF: </label>
+                                    <input id="CPF" name="CPF" required="required" type="text" placeholder=""
                                            onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                                        return true;
                                                    else
                                                        return false;"/>
                                 </p>
-
                                 <p> 
-                                    <label for="IE" class="IE" data-icon="" > IE: </label>
-                                    <input id="IE" name="IE" required="required" type="text" placeholder=""
+                                    <label for="RG" class="RG" data-icon="" > RG: </label>
+                                    <input id="RG" name="RG" required="required" type="text" placeholder=""
                                            onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
                                                        return true;
                                                    else
                                                        return false;"/>
                                 </p>
-                                
-                                <p> 
-                                    <label for="PedidoMinimo" class="PedidoMinimo" data-icon="" > Pedido Mínimo: </label>
-                                    <input id="PedidoMinimo" name="pedidoMinimo" required="required" type="text" placeholder=""
-                                           onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode)))
-                                                       return true;
-                                                   else
-                                                       return false;"/>
-                                </p>
-
                                 <p> 
                                     <label for="telefone" class="telefone" > Telefone: </label>
                                     <input id="telefone" name="telefone" required="required" type="text" placeholder=""
@@ -148,11 +131,11 @@
                                 </p>
 
                                 <p class="cadastrar button"> 
-                                    <input type="submit" name="botao" value="CADASTRAR FORNECEDOR" /> 
+                                    <input type="submit" name="botao" value="CADASTRAR CLIENTE FISICO" /> 
                                 </p>
 
                                 <p class="voltar button"> 
-                                    <a href="parceirosFornecedor.html"> <input type="button" value="VOLTAR" /> </a>
+                                    <a href="parceirosClienteFisico.jsp"> <input type="button" value="VOLTAR" /> </a>
                                 </p>
                             </form>
                         </div>				
@@ -162,3 +145,4 @@
         </div>
     </body>
 </html>
+

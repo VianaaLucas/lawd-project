@@ -42,12 +42,9 @@ public class Email {
 
     public boolean enviar() {
         HtmlEmail email = new HtmlEmail();
-
         email.setHostName("smtp.gmail.com");
-
         email.setSmtpPort(587);
         email.setStartTLSEnabled(true);
-
         // email.setSslSmtpPort("456");
         //email.setSSLOnConnect(true);
         try {
@@ -55,7 +52,6 @@ public class Email {
             email.setFrom(EmailAutenticacao.email, EmailAutenticacao.nome);
             email.setSubject(assunto);
             email.setHtmlMsg(mensagem);
-
             System.out.println("autenticando...");
             email.setAuthentication(EmailAutenticacao.email, EmailAutenticacao.senha);
             System.out.println("enviando...");

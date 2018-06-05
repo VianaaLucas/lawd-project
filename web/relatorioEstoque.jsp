@@ -15,18 +15,18 @@
     </head>
     <body>
         <canvas class="line-chart"style="position: relative; height:40vh; width:50vw;background:rgba(147, 184, 189,0.2)"></canvas>
-            <%List<Integer> lista = new ArrayList<>();
-                //  lista.add(next);
+            <%/*List<Integer> lista = new ArrayList<>();
+                 lista.add(next);
                 for (int i = 1; i <= 12; i++) {
-                    lista.add(i);
+                 /  lista.add(i);
 
-                }
-                String teste = "";
-                for (int c = 1; c <= 12; c++) {
+               // }
+               // String teste = "";
+              //  for (int c = 1; c <= 12; c++) {
 
-                    teste = teste + "," + lista.get(c);
+               //     teste = teste + "," + lista.get(c);
                 }
-            %>
+            */%>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
         <script>
@@ -40,7 +40,7 @@
                     datasets: [
                         {
                             label: "Quantidade em Estoque - 2018",
-                            data: [<%=teste%>], //trazer do banco qnt total de itens por mes 2018
+                            data: [10, 18, 13, 9, 0, 33, 57, 130, 94, 20, 18, 1], //trazer do banco qnt total de itens por mes 2018
                             borderwidth: 5,
                             borderColor: 'rgba(255, 0, 0)',
                             backgroundColor: 'rgba(255, 0, 0, 0.8)',

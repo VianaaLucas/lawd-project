@@ -21,8 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 //select f.nome, f.email, p.descricao, p.estoque, p.qtdminima, p.qtdcompra 
 //from fornecedor f, produto p 
 //where p.fornecedor = f.id and p.estoque <= p.qtdminima
-
-
 /**
  * @author lucas
  */
@@ -126,17 +124,23 @@ public class ControleProduto extends HttpServlet {
             Produto produtoP = new Produto();
             ProdutoDAO prod = new ProdutoDAO();
             produtoP = prod.consultarPorCodigo(produto);
-            request.setAttribute("descricao", produtoP.getDescricao());
-            request.setAttribute("precoVenda", produtoP.getPreco_venda());
-            request.setAttribute("precoCusto", produtoP.getPreco_custo());
-            request.setAttribute("estoque", produtoP.getQuantidade_estoque());
-            request.setAttribute("codigobarra", produtoP.getCodigo_barra());
-            request.setAttribute("fornecedor", produtoP.getFornecedor().getId());
-            request.setAttribute("categoria", produtoP.getCategoria().getId());
-            request.setAttribute("subcategoria", produtoP.getSubCategoria().getId());
-            request.setAttribute("qtdCompra", produtoP.getQtdcompra());
-            request.setAttribute("qtdMinima", produtoP.getQtdminima());
-            request.getRequestDispatcher("produtosAlterar.jsp").forward(request, response);
+            if (produtoP != null) {
+                request.setAttribute("descricao", produtoP.getDescricao());
+                request.setAttribute("precoVenda", produtoP.getPreco_venda());
+                request.setAttribute("precoCusto", produtoP.getPreco_custo());
+                request.setAttribute("estoque", produtoP.getQuantidade_estoque());
+                request.setAttribute("codigobarra", produtoP.getCodigo_barra());
+                request.setAttribute("fornecedor", produtoP.getFornecedor().getId());
+                request.setAttribute("categoria", produtoP.getCategoria().getId());
+                request.setAttribute("subcategoria", produtoP.getSubCategoria().getId());
+                request.setAttribute("qtdCompra", produtoP.getQtdcompra());
+                request.setAttribute("qtdMinima", produtoP.getQtdminima());
+                request.getRequestDispatcher("produtosAlterar.jsp").forward(request, response);
+            } else {
+                request.setAttribute("msg", "Produto não encontrado!!!");
+                request.getRequestDispatcher("produtosConsultar.jsp").forward(request, response);
+            }
+
         } else if (request.getParameter("botao").equals("CADASTRAR")) {
             Produto produto = new Produto();
             ProdutoDAO cadProDAO = new ProdutoDAO();

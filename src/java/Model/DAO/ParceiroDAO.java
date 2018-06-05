@@ -17,7 +17,9 @@ public class ParceiroDAO {
     private static final String LISTA_TODOS = "SELECT id, nome FROM fornecedor ORDER BY nome";
     private static final String CONSULTAFORNECEDOR = "SELECT * FROM fornecedor WHERE id = ?";
     private static final String CADASTRAFORNECEDOR = "INSERT INTO fornecedor (nome, telefone, celular, email, cep, numero, complemento, rua, cidade, estado, cnpj, ie, razao_social, pedido_minimo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+    private static final String CADASTRACLIENTEFISICO = "INSERT INTO cliente(nome, telefone, celular, email, cep, numero, complemento, rua, cidade, estado, tipo, rg, cpf) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String CADASTRACLIENTEJURIDICO = "INSERT INTO cliente(nome, telefone, celular, email, cep, numero, complemento, rua, cidade, estado, tipo, cnpj, ie, razao_social) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
     public ArrayList<Fornecedor> lista() {
         try {
             Connection conexao = ConectaBanco.getConexao();
@@ -42,7 +44,7 @@ public class ParceiroDAO {
 
             conexao = ConectaBanco.getConexao();
 
-            PreparedStatement stmt = conexao.prepareStatement("INSERT INTO cliente(nome, telefone, celular, email, cep, numero, complemento, rua, cidade, estado, tipo, cnpj, ie, razao_social) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            PreparedStatement stmt = conexao.prepareStatement(CADASTRACLIENTEJURIDICO);
 
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getTelefone());
@@ -68,12 +70,9 @@ public class ParceiroDAO {
     }
 
     public boolean cadastrarClienteFisico(ClienteFisico cliente) {
-        Connection conexao = null;
         try {
-
-            conexao = ConectaBanco.getConexao();
-
-            PreparedStatement stmt = conexao.prepareStatement("INSERT INTO cliente(nome, telefone, celular, email, cep, numero, complemento, rua, cidade, estado, tipo, rg, cpf) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            Connection conexao = ConectaBanco.getConexao();
+            PreparedStatement stmt = conexao.prepareStatement(CADASTRACLIENTEFISICO);
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getTelefone());
             stmt.setString(3, cliente.getCelular());

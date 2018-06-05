@@ -11,6 +11,7 @@ import Model.DAO.ProdutoDAO;
 import Model.Desconto;
 import java.io.PrintWriter;
 import java.io.IOException;
+import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -62,7 +63,17 @@ public class ControleDesconto extends HttpServlet {
                 request.setAttribute("msg", "Ocorreu uma falha ao atribuir o desconto!!!");
                 request.getRequestDispatcher("descontoCadastrar.jsp").forward(request, response);
             }
+        } else if (acao.equals("consultapercentual")) {
+            int idcat = Integer.parseInt(request.getParameter("categoria"));
+            DescontoDAO descontoDAO = new DescontoDAO();
+            Desconto desconto = new Desconto();
+            Categoria categoria = new Categoria();
+            categoria.setId(idcat);
+            desconto.setCategoria(categoria);
+            double valorDesconto = descontoDAO.checaDesconto(desconto);
+            out.print(valorDesconto);
         }
+
     }
 
     @Override
@@ -80,7 +91,7 @@ public class ControleDesconto extends HttpServlet {
             ProdutoDAO produtodao = new ProdutoDAO();
             List<Desconto> listadesconto = new ArrayList<>();
             double teste = descontodao.checaDesconto(desconto);
-            if ( teste == 0) {
+            if (teste == 0) {
 
                 listadesconto = produtodao.verificaLucro(desconto);
                 if (listadesconto == null) {
@@ -113,7 +124,7 @@ public class ControleDesconto extends HttpServlet {
                 request.getRequestDispatcher("descontoCadastrar.jsp").forward(request, response);
             }
 
-        } else if (botao.equals("EXCLUIR")){
+        } else if (botao.equals("EXCLUIR")) {
             Desconto desconto = new Desconto();
             Categoria categoria = new Categoria();
             categoria.setId(Integer.parseInt(request.getParameter("selecao_categoria")));
@@ -126,6 +137,34 @@ public class ControleDesconto extends HttpServlet {
                 request.getRequestDispatcher("descontoConsultar.jsp").forward(request, response);
             } else {
                 request.setAttribute("msg", "Ocorreu uma falha ao excluir o desconto!!!");
+                request.getRequestDispatcher("descontoConsultar.jsp").forward(request, response);
+            }
+        } else if (botao.equals("CONSULTAR")) {
+            Desconto desconto = new Desconto();
+            Categoria categoria = new Categoria();
+            categoria.setId(Integer.parseInt(request.getParameter("selecao_categoria")));
+            desconto.setCategoria(categoria);
+            DescontoDAO descontodao = new DescontoDAO();
+            double porcentual = descontodao.checaDesconto(desconto);
+            if (porcentual > 0) {
+                request.setAttribute("porcentual", porcentual);
+                request.setAttribute("categoria", categoria.getId());
+                request.getRequestDispatcher("descontoEditar.jsp").forward(request, response);
+            } else {
+                request.setAttribute("msg", "Não há desconto cadastrado para esta categoria");
+                request.getRequestDispatcher("descontoConsultar.jsp").forward(request, response);
+            }
+        } else if (botao.equals("INATIVAR")){
+            Desconto desconto = new Desconto();
+            Categoria categoria = new Categoria();
+            categoria.setId(Integer.parseInt(request.getParameter("hcategoria")));
+            desconto.setCategoria(categoria);
+            DescontoDAO descontodao = new DescontoDAO();
+            if(descontodao.inativaDesconto(desconto) == true){
+               request.setAttribute("msg", "Desconto inativado com sucesso!");
+                request.getRequestDispatcher("descontoConsultar.jsp").forward(request, response); 
+            } else{
+                request.setAttribute("msg", "Erro ao inativar o desconto");
                 request.getRequestDispatcher("descontoConsultar.jsp").forward(request, response);
             }
         }

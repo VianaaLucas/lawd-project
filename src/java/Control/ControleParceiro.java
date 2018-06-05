@@ -6,6 +6,8 @@
 package Control;
 
 import Model.Cidade;
+import Model.ClienteFisico;
+import Model.ClienteJuridico;
 import Model.DAO.CidadeDAO;
 import Model.DAO.EstadoDAO;
 import Model.DAO.ParceiroDAO;
@@ -86,23 +88,20 @@ public class ControleParceiro extends HttpServlet {
             throws ServletException, IOException {
 
         String acao = request.getParameter("botao");
-        ParceiroDAO parceiro = new ParceiroDAO();
-        String tipo = request.getParameter("tipo");
-        String tpPessoa = request.getParameter("pessoa");
-
-        Estado estado = new Estado();
-        estado.setId(parseInt(request.getParameter("estado")));
-        Cidade cidade = new Cidade();
-        cidade.setId(parseInt(request.getParameter("cidade")));
-        Endereco endereco = new Endereco();
-        endereco.setCidade(cidade);
-        endereco.setEstado(estado);
-        endereco.setCep(parseInt(request.getParameter("cep")));
-        endereco.setRua(request.getParameter("logradouro"));
-        endereco.setNumero(parseInt(request.getParameter("numero")));
-        endereco.setComplemento(request.getParameter("complemento"));
 
         if (acao.equals("CADASTRAR FORNECEDOR")) {
+            ParceiroDAO parceiro = new ParceiroDAO();
+            Estado estado = new Estado();
+            estado.setId(parseInt(request.getParameter("estado")));
+            Cidade cidade = new Cidade();
+            cidade.setId(parseInt(request.getParameter("cidade")));
+            Endereco endereco = new Endereco();
+            endereco.setCidade(cidade);
+            endereco.setEstado(estado);
+            endereco.setCep(parseInt(request.getParameter("cep")));
+            endereco.setRua(request.getParameter("logradouro"));
+            endereco.setNumero(parseInt(request.getParameter("numero")));
+            endereco.setComplemento(request.getParameter("complemento"));
             Fornecedor fornecedor = new Fornecedor();
             fornecedor.setEndereco(endereco);
             fornecedor.setCelular(request.getParameter("celular"));
@@ -121,8 +120,63 @@ public class ControleParceiro extends HttpServlet {
                 request.setAttribute("msg", "Falha ao cadastrar fornecedor");
                 response.sendRedirect("parceirosCadForn.jsp");
             }
-        } else if (acao.equals("CADASTRAR CLIENTE")) {
-
+        } else if (acao.equals("CADASTRAR CLIENTE FISICO")) {
+            ParceiroDAO parceiro = new ParceiroDAO();
+            Estado estado = new Estado();
+            estado.setId(parseInt(request.getParameter("estado")));
+            Cidade cidade = new Cidade();
+            cidade.setId(parseInt(request.getParameter("cidade")));
+            Endereco endereco = new Endereco();
+            endereco.setCidade(cidade);
+            endereco.setEstado(estado);
+            endereco.setCep(parseInt(request.getParameter("cep")));
+            endereco.setRua(request.getParameter("logradouro"));
+            endereco.setNumero(parseInt(request.getParameter("numero")));
+            endereco.setComplemento(request.getParameter("complemento"));
+            ClienteFisico clienteFisico = new ClienteFisico();
+            clienteFisico.setEndereco(endereco);
+            clienteFisico.setTelefone(request.getParameter("telefone"));
+            clienteFisico.setCelular(request.getParameter("celular"));
+            clienteFisico.setEmail(request.getParameter("email"));
+            clienteFisico.setNome(request.getParameter("nome"));
+            clienteFisico.setCpf(request.getParameter("CPF"));
+            clienteFisico.setRg(request.getParameter("RG"));
+            if (parceiro.cadastrarClienteFisico(clienteFisico) == true) {
+                request.setAttribute("msg", "Cliente cadastrado com sucesso!!!");
+                response.sendRedirect("parceirosCadClienteFisico.jsp");
+            } else {
+                request.setAttribute("msg", "Falha ao cadastrar cliente");
+                response.sendRedirect("parceirosCadClienteFisico.jsp");
+            }
+        } else if (acao.equals("CADASTRAR CLIENTE JURIDICO")) {
+            ParceiroDAO parceiro = new ParceiroDAO();
+            Estado estado = new Estado();
+            estado.setId(parseInt(request.getParameter("estado")));
+            Cidade cidade = new Cidade();
+            cidade.setId(parseInt(request.getParameter("cidade")));
+            Endereco endereco = new Endereco();
+            endereco.setCidade(cidade);
+            endereco.setEstado(estado);
+            endereco.setCep(parseInt(request.getParameter("cep")));
+            endereco.setRua(request.getParameter("logradouro"));
+            endereco.setNumero(parseInt(request.getParameter("numero")));
+            endereco.setComplemento(request.getParameter("complemento"));
+            ClienteJuridico clienteJuridico = new ClienteJuridico();
+            clienteJuridico.setEndereco(endereco);
+            clienteJuridico.setTelefone(request.getParameter("telefone"));
+            clienteJuridico.setCelular(request.getParameter("celular"));
+            clienteJuridico.setEmail(request.getParameter("email"));
+            clienteJuridico.setCnpj(request.getParameter("CNPJ"));
+            clienteJuridico.setIe(request.getParameter("IE"));
+            clienteJuridico.setNome(request.getParameter("nomeFant"));
+            clienteJuridico.setRazao_social(request.getParameter("razaoSocial"));
+            if (parceiro.cadastrarClienteJuridico(clienteJuridico) == true) {
+                request.setAttribute("msg", "Cliente cadastrado com sucesso!!!");
+                response.sendRedirect("parceirosCadClienteJuridico.jsp");
+            } else {
+                request.setAttribute("msg", "Falha ao cadastrar cliente");
+                response.sendRedirect("parceirosCadClienteJuridico.jsp");
+            }
         }
     }
 

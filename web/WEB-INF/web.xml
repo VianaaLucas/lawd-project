@@ -121,29 +121,48 @@
     </filter>
     <filter-mapping>
         <filter-name>AcessoLogado</filter-name>
+        <url-pattern>/admVendas.jsp</url-pattern>
         <url-pattern>/categoriaAlterar.html</url-pattern>
-        <url-pattern>/categoriaCadastrar.html</url-pattern>
+        <url-pattern>/categoriaCadastrar.jsp</url-pattern>
         <url-pattern>/categoriaConsultar.jsp</url-pattern>
         <url-pattern>/categoriaHome.html</url-pattern>
         <url-pattern>/categoriaInativar.html</url-pattern>
-        <url-pattern>/categoriaPesquisar.html</url-pattern>
         <url-pattern>/categoriaMostrar.jsp</url-pattern>
+        <url-pattern>/categoriaPesquisar.html</url-pattern>
         <url-pattern>/descontoCadastrar.jsp</url-pattern>
-        <url-pattern>/descontoConsultar.html</url-pattern>
+        <url-pattern>/descontoConsultar.jsp</url-pattern>
+        <url-pattern>/descontoEditar.jsp</url-pattern>
         <url-pattern>/descontoHome.html</url-pattern>
+        <url-pattern>/descontoLista.jsp</url-pattern>
+        <url-pattern>/erro.jsp</url-pattern>
+        <url-pattern>/estoque.jsp</url-pattern>
+        <url-pattern>/head.jsp</url-pattern>
         <url-pattern>/home.jsp</url-pattern>
+        <url-pattern>/index.html</url-pattern>
+        <url-pattern>/itenspedido.jsp</url-pattern>
         <url-pattern>/estoque.html</url-pattern>
+        <url-pattern>/pagamento.jsp</url-pattern>
         <url-pattern>/parceirosAlterar.html</url-pattern>
-        <url-pattern>/parceirosCadastrar.jsp</url-pattern>
+        <url-pattern>/parceirosCadClienteFisico.jsp</url-pattern>
+        <url-pattern>/parceirosCadClienteJuridico.jsp</url-pattern>
+        <url-pattern>/parceirosCadForn.jsp</url-pattern>
+        <url-pattern>/parceirosClienteFisico.jsp</url-pattern>
+        <url-pattern>/parceirosClienteJuridico.jsp</url-pattern>
         <url-pattern>/parceirosConsultar.jsp</url-pattern>
+        <url-pattern>/parceirosFornecedor.html</url-pattern>
         <url-pattern>/parceirosHome.html</url-pattern>
         <url-pattern>/parceirosPesquisar.html</url-pattern>
         <url-pattern>/pdv.jsp</url-pattern>
+        <url-pattern>/pedidoCompra.jsp</url-pattern>
+        <url-pattern>/pedidos.jsp</url-pattern>
         <url-pattern>/produtosAlterar.jsp</url-pattern>
         <url-pattern>/produtosCadastrar.jsp</url-pattern>
-        <url-pattern>/produtosConsultar.html</url-pattern>
+        <url-pattern>/produtosConsultar.jsp</url-pattern>
         <url-pattern>/produtosHome.html</url-pattern>
         <url-pattern>/produtosInativar.html</url-pattern>
+        <url-pattern>/relatorioEstoque.html</url-pattern>
+        <url-pattern>/relatorioLucro.html</url-pattern>
+        <url-pattern>/relatorioVenda.html</url-pattern>
         <url-pattern>/subCatAlterar.html</url-pattern>
         <url-pattern>/subCatCadastrar.jsp</url-pattern>
         <url-pattern>/subCatConsultar.html</url-pattern>

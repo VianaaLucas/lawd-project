@@ -83,7 +83,7 @@ public class ControleCarrinho extends HttpServlet {
                 //remove o carrinho da sessão
                 sessao.removeAttribute("carrinho");
                 //redireciona para pagina principal
-                response.sendRedirect("teste.jsp");
+                response.sendRedirect("pdv.jsp");
             }
         } catch (Exception erro) {
             request.setAttribute("erro", erro);
@@ -177,8 +177,6 @@ public class ControleCarrinho extends HttpServlet {
             sessao.removeAttribute("carrinho");
             sessao.removeAttribute("idPedido");
             response.sendRedirect("pdv.jsp");
-            
-            
         }
     }
 
