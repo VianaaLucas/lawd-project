@@ -27,16 +27,21 @@
         var chartGraph = new Chart(ctx, {
             type:'bar',
             data:{
+                 <%        // criar list para trazer categoria 
+                         Double vlr = (Double) request.getAttribute("vlr");
+                                    if (vlr != null) {
+
+                                %>
                   labels:["Janeiro","Fevereiro","Marco","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
                   datasets:[
                       {
                           label:"Taxa de Vendidos - 2018",
-                          data:[5,10,15,12,12,32,33,34,34,45,50,12],//trazer do banco a soma dos valores mensais de janeiro a dezembro de 2018 
+                          data:[<%=vlr%>5,10,15,12,12,32,33,34,34,45,50,12] <%}%>,//trazer do banco a soma dos valores mensais de janeiro a dezembro de 2018
                           borderwidth:5,
                           borderColor: 'rgba(255, 0, 0)',
                           backgroundColor: 'rgba(255, 0, 0, 0.8)',
                   },
-                       {
+                       {// vlr podera ser trazido usando a data diferente?? 
                           label:"Taxa de Vendidos - 2017",
                           data:[4,8,10,10,10,30,33,30,34,40,48,10],//trazer do banco ""
                           borderwidth:5,
