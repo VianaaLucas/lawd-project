@@ -36,6 +36,15 @@
 
                             <p class="vendas button"> 
                                 <a href="pedidos.jsp"> <input type="button" value="PEDIDOS PARA COMPRA" /></a> 
+                            </p> 
+                            <p class="relatorioVenda button"> 
+                                <a href="relatorioVenda.jsp"> <input type="button" value="RELATORIO DE VENDAS" /></a> 
+                            </p>
+                            <p class="relatorioEstoque button"> 
+                                <a href="relatorioEstoque.jsp"> <input type="button" value="RELATORIO DE ESTOQUE" /></a> 
+                            </p>
+                            <p class="relatorioLucro button"> 
+                                <a href="relatorioLucro.jsp"> <input type="button" value="RELATORIO DE LUCRO" /></a> 
                             </p>
 
                             <p class="produtos button"> 

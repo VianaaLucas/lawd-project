@@ -45,16 +45,17 @@
                                     if (cat != null) {
 
                                 %>
+                                        
                     labels: ["<%=cat%>", "Fevereiro", "Marco", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"], <%}%>
                     datasets: [
-                        {
-                            <%        //list para trazer qtd de produto/categoria 
-                         String qtd = (String) request.getAttribute("qtd");
+                        {       <%        //list para trazer qtd de produto/categoria 
+                         Double qtd = (Double) request.getAttribute("qtd");
                                     if (qtd != null) {
 
                                 %>
+                            
                             label: "Quantidade em Estoque por Categoria",
-                            data: [<%=qtd%>10, 18, 13, 9, 0, 33, 57, 130, 94, 20, 18, 1], //trazer do banco qnt total de itens por categoria
+                            data: [<%=qtd%>10, 18, 13, 9, 0, 33, 57, 130, 94, 20, 18, 1],<%}%> //trazer do banco qnt total de itens por categoria
                             borderwidth: 5,
                             borderColor: 'rgba(255, 0, 0)',
                             backgroundColor: 'rgba(255, 0, 0, 0.8)',
