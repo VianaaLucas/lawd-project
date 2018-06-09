@@ -114,7 +114,7 @@ public class ControleProduto extends HttpServlet {
             Produto produto = new Produto(Long.parseLong(request.getParameter("codigo")));
             ProdutoDAO prodDAO = new ProdutoDAO();
             if (prodDAO.inativarProduto(produto) == true) {
-                response.sendRedirect("produtosConsultar.html");
+                response.sendRedirect("produtosConsultar.jsp");
             } else {
                 response.sendRedirect("produtosAlterar.jsp");
             }

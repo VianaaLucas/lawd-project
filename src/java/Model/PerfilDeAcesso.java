@@ -10,9 +10,9 @@ package Model;
  * @author hataishi
  */
 public enum PerfilDeAcesso {
-    VENDEDOR,
+    FUNCIONARIO,
     GERENTE,
-    ESTOQUISTA,
+    VENDEDOR,
     ADMINISTRADOR;
     
 }

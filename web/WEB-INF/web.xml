@@ -44,6 +44,10 @@
         <servlet-name>ControleSubCategoria</servlet-name>
         <servlet-class>Control.ControleSubCategoria</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControleRelatorio</servlet-name>
+        <servlet-class>Control.ControleRelatorio</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>
         <url-pattern>/ServletLogin</url-pattern>
@@ -88,6 +92,10 @@
         <servlet-name>ControleDesconto</servlet-name>
         <url-pattern>/ControleDesconto</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControleRelatorio</servlet-name>
+        <url-pattern>/ControleRelatorio</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             60
@@ -103,18 +111,69 @@
     <filter-mapping>
         <filter-name>AcessoAdministrativo</filter-name>
         <url-pattern>/admin/*</url-pattern>
+        <!--        <url-pattern>/LAWD/home.jsp</url-pattern>-->
     </filter-mapping>
+    <!--
     <filter>
-        <filter-name>AcessoVendedor</filter-name>
-        <filter-class>Control.AcessoVendedor</filter-class>
+        <filter-name>AcessoFuncionario</filter-name>
+        <filter-class>Control.AcessoFuncionario</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>AcessoVendedor</filter-name>
+        <filter-name>AcessoFuncionario</filter-name>
         <url-pattern>/home.jsp</url-pattern>
         <url-pattern>/pdv.jsp</url-pattern>
-        <url-pattern>/produtosConsultar.html</url-pattern>
+        <url-pattern>/pagamento.jsp</url-pattern>
+        <url-pattern>/produtosAlterar.jsp</url-pattern>
+        <url-pattern>/produtosCadastrar.jsp</url-pattern>
+        <url-pattern>/produtosConsultar.jsp</url-pattern>
         <url-pattern>/produtosHome.html</url-pattern>
+        <url-pattern>/produtosInativar.html</url-pattern>
+        <url-pattern>/parceirosAlterar.html</url-pattern>
+        <url-pattern>/parceirosCadClienteFisico.jsp</url-pattern>
+        <url-pattern>/parceirosCadClienteJuridico.jsp</url-pattern>
+        <url-pattern>/parceirosCadForn.jsp</url-pattern>
+        <url-pattern>/parceirosClienteFisico.jsp</url-pattern>
+        <url-pattern>/parceirosClienteJuridico.jsp</url-pattern>
+        <url-pattern>/parceirosConsultar.jsp</url-pattern>
+        <url-pattern>/parceirosFornecedor.html</url-pattern>
+        <url-pattern>/parceirosHome.html</url-pattern>
+        <url-pattern>/parceirosPesquisar.html</url-pattern>
+        <url-pattern>/estoque.html</url-pattern>
+        <url-pattern>/categoriaAlterar.html</url-pattern>
+        <url-pattern>/categoriaCadastrar.jsp</url-pattern>
+        <url-pattern>/categoriaConsultar.jsp</url-pattern>
+        <url-pattern>/categoriaHome.html</url-pattern>
+        <url-pattern>/categoriaInativar.html</url-pattern>
+        <url-pattern>/categoriaMostrar.jsp</url-pattern>
+        <url-pattern>/categoriaPesquisar.html</url-pattern>
+        <url-pattern>/subCatAlterar.html</url-pattern>
+        <url-pattern>/subCatCadastrar.jsp</url-pattern>
+        <url-pattern>/subCatConsultar.html</url-pattern>
+        <url-pattern>/subCatHome.html</url-pattern>
+        <url-pattern>/subCatInativar.html</url-pattern>
+        <url-pattern>/subCatPesquisar.html</url-pattern>
+        <url-pattern>/subCat.jsp</url-pattern>
     </filter-mapping>
+    <filter>
+        <filter-name>AcessoGerente</filter-name>
+        <filter-class>Control.AcessoGerente</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AcessoGerente</filter-name>
+        <url-pattern>/home.jsp</url-pattern>
+        <url-pattern>/descontoCadastrar.jsp</url-pattern>
+        <url-pattern>/descontoConsultar.jsp</url-pattern>
+        <url-pattern>/descontoEditar.jsp</url-pattern>
+        <url-pattern>/descontoHome.html</url-pattern>
+        <url-pattern>/descontoLista.jsp</url-pattern>
+        <url-pattern>/itenspedido.jsp</url-pattern>
+        <url-pattern>/pedidoCompra.jsp</url-pattern>
+        <url-pattern>/pedidos.jsp</url-pattern>
+        <url-pattern>/relatorioEstoque.jsp</url-pattern>
+        <url-pattern>/relatorioLucro.jsp</url-pattern>
+        <url-pattern>/relatorioVenda.jsp</url-pattern>
+    </filter-mapping>
+    -->
     <filter>
         <filter-name>AcessoLogado</filter-name>
         <filter-class>Control.AcessoLogado</filter-class>

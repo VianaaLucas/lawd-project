@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.commons.mail.HtmlEmail;
 
 /**
  *
@@ -56,9 +55,9 @@ public class ControlePedidoCompra extends HttpServlet {
         if (acao.equals("consulta")) {
             PedidodeCompra pedido = new PedidodeCompra();
             pedido.setId(parseInt(request.getParameter("idPedido")));
-            ItemDeCompraDAO pedidodao = new ItemDeCompraDAO();
+            ItemDeCompraDAO itemPedidoDAO = new ItemDeCompraDAO();
             List<ItemDeCompra> itens = new ArrayList<>();
-            itens = pedidodao.consultaItemPedido(pedido);
+            itens = itemPedidoDAO.consultaItemPedido(pedido);
 
             if (!itens.isEmpty()) {
                 sessao.setAttribute("itens", itens);
@@ -83,7 +82,7 @@ public class ControlePedidoCompra extends HttpServlet {
             fornecedor.setId(parseInt(request.getParameter("fornecedor")));
             PedidoCompraDAO pedidoCompraDAO = new PedidoCompraDAO();
             List<PedidodeCompra> listaPedido = new ArrayList();
-            listaPedido = pedidoCompraDAO.consultaPedidos(parseInt(request.getParameter("fornecedor")));
+            listaPedido = pedidoCompraDAO.consultaPedidos(fornecedor.getId());
             sessao.setAttribute("pedidoCompra", listaPedido);
             request.getRequestDispatcher("/pedidoCompra.jsp").forward(request, response);
 

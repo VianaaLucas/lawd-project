@@ -31,11 +31,13 @@ public class ControleUsuario extends HttpServlet {
                 usuario.setSenha(request.getParameter("txtSenha"));
                 String perfil = request.getParameter("optPerfil");
                 if (perfil.equalsIgnoreCase("administrador")) {
-                    usuario.setPerfil(PerfilDeAcesso.GERENTE);
+                    usuario.setPerfil(PerfilDeAcesso.ADMINISTRADOR);
                 } else if (perfil.equalsIgnoreCase("vendedor")) {
                     usuario.setPerfil(PerfilDeAcesso.VENDEDOR);
-                } else if (perfil.equalsIgnoreCase("estoquista")) {
-                    usuario.setPerfil(PerfilDeAcesso.ESTOQUISTA);
+                } else if (perfil.equalsIgnoreCase("funcionario")) {
+                    usuario.setPerfil(PerfilDeAcesso.FUNCIONARIO);
+                }else if (perfil.equalsIgnoreCase("gerente")) {
+                    usuario.setPerfil(PerfilDeAcesso.GERENTE);
                 }
                 UsuarioDAO usuarioDAO = new UsuarioDAO();
                 usuarioDAO.cadastraNovoUsuario(usuario);

@@ -159,7 +159,6 @@ public class ControleCarrinho extends HttpServlet {
                 //nota
                 carrinho.setId(idPedido);
                 sessao.setAttribute("carrinho", carrinho);
-                ControleProduto estoque = new ControleProduto();
                 request.getRequestDispatcher("/pagamento.jsp").forward(request, response);
             }
         } else if (botao.equals("ENCERRAR")) {

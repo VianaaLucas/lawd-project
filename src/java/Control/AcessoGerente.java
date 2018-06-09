@@ -6,6 +6,7 @@
 package Control;
 
 import Model.Usuario;
+import Model.PerfilDeAcesso;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,6 +14,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,28 +23,30 @@ import javax.servlet.http.HttpSession;
  *
  * @author lucas
  */
-public class AcessoVendedor implements Filter {
+@WebFilter("/oi")
+public class AcessoGerente implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        
+
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession sessaoUsuario = ((HttpServletRequest) request).getSession();
-        Usuario usuarioLogado = (Usuario) sessaoUsuario.getAttribute("usuarioAutenticado");
+        Usuario usuario = (Usuario) sessaoUsuario.getAttribute("usuarioAutenticado");
 
-        if (usuarioLogado != null) {
+        if (usuario != null & usuario.getPerfil().equals(PerfilDeAcesso.GERENTE)) {
             chain.doFilter(request, response);
         } else {
-            ((HttpServletResponse) response).sendRedirect("login.jsp");
+            ((HttpServletResponse) response).sendRedirect("../home.jsp");
         }
+
     }
 
     @Override
     public void destroy() {
         
     }
-    
+
 }
