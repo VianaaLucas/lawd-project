@@ -41,7 +41,7 @@
                                     <input type="submit"  name="botao" id="botao"  value="VENDAS" /></a> 
                                 </p>
                                 <p class="relatorioEstoque button"> 
-                                    <input type="submit" name="botao" id="botao" value="ESTOQUE" /></a> 
+                                    <input type="submit" name="botao" id="botao" value="PAGAMENTOS" /></a> 
                                 </p>
                                 <p class="relatorioLucro button"> 
                                     <input type="submit" name="botao" id="botao" value="LUCRO" /></a> 

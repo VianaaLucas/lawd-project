@@ -52,6 +52,11 @@ public class ControleRelatorio extends HttpServlet {
             ArrayList<Double> lista = relatorioDAO.relatoriodevendas();
             request.setAttribute("lista", lista);
             request.getRequestDispatcher("relatorioVenda.jsp").forward(request, response);
+        }else if (botao.equals("PAGAMENTOS")){
+            RelatorioDAO relatorioDAO = new RelatorioDAO();
+            ArrayList<ArrayList<Double>> pagamentos = relatorioDAO.relatoriodepamaentos();
+            request.setAttribute("pagamentos", pagamentos);
+            request.getRequestDispatcher("relatorioPagamentos.jsp").forward(request, response);
         }
     }
 
