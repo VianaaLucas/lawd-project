@@ -12,7 +12,7 @@ package Model;
 public enum PerfilDeAcesso {
     FUNCIONARIO,
     GERENTE,
-    VENDEDOR,
-    ADMINISTRADOR;
+    ADMINISTRADOR,
+    SUPERADMIN;
     
 }

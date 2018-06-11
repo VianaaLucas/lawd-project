@@ -52,7 +52,8 @@
                                     <input id="txtSenha" name="txtSenha" required="required" type="password" placeholder=""/> 
                                 </p>
                                 <select class="form-control" name="optPerfil" alt="yes" title="Perfil">
-                                    <option>VENDEDOR</option>
+                                    <option>FUNCIONARIO</option>
+                                    <option>GERENTE</option>
                                     <option>ADMINISTRADOR</option>
                                 </select>										
 

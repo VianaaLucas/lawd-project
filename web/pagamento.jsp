@@ -146,7 +146,7 @@
                         </table>
                     </form>
                     <form class="uk-form" action="ControleCarrinho" autocomplete="on" Method="POST">
-                        <input class="uk-button uk-button-large uk-button-success uk-width-1-1" type="submit" name="botao" value="FINALIZAR PEDIDO">
+                        <input class="uk-button uk-button-large uk-button-success uk-width-1-1" type="submit" name="botao" value="FINALIZARPEDIDO">
                     </form>
                 </div>
             </div>

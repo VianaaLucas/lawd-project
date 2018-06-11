@@ -5,8 +5,10 @@
  */
 package Control;
 
+import Model.DAO.RelatorioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +28,7 @@ public class ControleRelatorio extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ControleRelatorio</title>");            
+            out.println("<title>Servlet ControleRelatorio</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ControleRelatorio at " + request.getContextPath() + "</h1>");
@@ -44,7 +46,13 @@ public class ControleRelatorio extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String botao = request.getParameter("botao");
+        if (botao.equals("VENDAS")) {
+            RelatorioDAO relatorioDAO = new RelatorioDAO();
+            ArrayList<Double> lista = relatorioDAO.relatoriodevendas();
+            System.out.println("passou");
+
+        }
     }
 
     @Override

@@ -23,7 +23,39 @@ import javax.servlet.http.HttpSession;
  *
  * @author lucas
  */
-@WebFilter("/oi")
+@WebFilter(filterName = "AcessoFuncionario", urlPatterns = {
+    "/pdv.jsp",
+    "/pagamento.jsp",
+    "/produtosAlterar.jsp",
+    "/produtosCadastrar.jsp",
+    "/produtosConsultar.jsp",
+    "/produtosHome.html",
+    "/produtosInativar.html",
+    "/parceirosAlterar.html",
+    "/parceirosCadClienteFisico.jsp",
+    "/parceirosCadClienteJuridico.jsp",
+    "/parceirosCadForn.jsp",
+    "/parceirosClienteFisico.jsp",
+    "/parceirosClienteJuridico.jsp",
+    "/parceirosConsultar.jsp",
+    "/parceirosFornecedor.html",
+    "/parceirosHome.html",
+    "/parceirosPesquisar.html",
+    "/estoque.jsp",
+    "/categoriaAlterar.html",
+    "/categoriaCadastrar.jsp",
+    "/categoriaConsultar.jsp",
+    "/categoriaHome.html",
+    "/categoriaInativar.html",
+    "/categoriaMostrar.jsp",
+    "/categoriaPesquisar.html",
+    "/subCatAlterar.html",
+    "/subCatCadastrar.jsp",
+    "/subCatConsultar.html",
+    "/subCatHome.html",
+    "/subCatInativar.html",
+    "/subCatPesquisar.html",
+    "/subCat.jsp",})
 public class AcessoFuncionario implements Filter {
 
     @Override
@@ -38,15 +70,19 @@ public class AcessoFuncionario implements Filter {
 
         if (usuario != null & usuario.getPerfil().equals(PerfilDeAcesso.FUNCIONARIO)) {
             chain.doFilter(request, response);
-        } else {
-            ((HttpServletResponse) response).sendRedirect("../home.jsp");
+        } else if (usuario != null & usuario.getPerfil().equals(PerfilDeAcesso.GERENTE)) {
+            chain.doFilter(request, response);
+        } else if (usuario != null & usuario.getPerfil().equals(PerfilDeAcesso.SUPERADMIN)) {
+            chain.doFilter(request, response);
+        }else {
+            ((HttpServletResponse) response).sendRedirect("/Lawd/home.jsp");
         }
 
     }
 
     @Override
     public void destroy() {
-        
+
     }
 
 }

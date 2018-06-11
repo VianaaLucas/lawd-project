@@ -1,7 +1,7 @@
 package Model;
 
 import Model.DAO.PagamentoDAO;
-import Model.ItemDeCompra;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,6 +19,17 @@ public class Pedido {
     private List<Pagamento> pagamentos;
     private double totalPago;
     private double troco;
+    private Date data;
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+    
+    
 
     public void setId(Integer id) {
         this.id = id;

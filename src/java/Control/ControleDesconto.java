@@ -92,7 +92,6 @@ public class ControleDesconto extends HttpServlet {
             List<Desconto> listadesconto = new ArrayList<>();
             double teste = descontodao.checaDesconto(desconto);
             if (teste == 0) {
-
                 listadesconto = produtodao.verificaLucro(desconto);
                 if (listadesconto == null) {
                     boolean status = descontodao.desconto(desconto);

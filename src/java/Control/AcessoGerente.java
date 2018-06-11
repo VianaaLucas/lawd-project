@@ -23,7 +23,18 @@ import javax.servlet.http.HttpSession;
  *
  * @author lucas
  */
-@WebFilter("/oi")
+@WebFilter(filterName = "AcessoGerente", urlPatterns = {
+    "/admVendas.jsp",
+    "/descontoConsultar.jsp",
+    "/descontoEditar.jsp",
+    "/descontoHome.html",
+    "/descontoLista.jsp",
+    "/itenspedido.jsp",
+    "/pedidoCompra.jsp",
+    "/pedidos.jsp",
+    "/relatorioEstoque.jsp",
+    "/relatorioLucro.jsp",
+    "/relatorioVenda.jsp",})
 public class AcessoGerente implements Filter {
 
     @Override
@@ -38,15 +49,17 @@ public class AcessoGerente implements Filter {
 
         if (usuario != null & usuario.getPerfil().equals(PerfilDeAcesso.GERENTE)) {
             chain.doFilter(request, response);
+        } else if (usuario != null & usuario.getPerfil().equals(PerfilDeAcesso.SUPERADMIN)) {
+            chain.doFilter(request, response);
         } else {
-            ((HttpServletResponse) response).sendRedirect("../home.jsp");
+            ((HttpServletResponse) response).sendRedirect("/Lawd/home.jsp");
         }
 
     }
 
     @Override
     public void destroy() {
-        
+
     }
 
 }

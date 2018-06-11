@@ -32,8 +32,6 @@ public class ControleUsuario extends HttpServlet {
                 String perfil = request.getParameter("optPerfil");
                 if (perfil.equalsIgnoreCase("administrador")) {
                     usuario.setPerfil(PerfilDeAcesso.ADMINISTRADOR);
-                } else if (perfil.equalsIgnoreCase("vendedor")) {
-                    usuario.setPerfil(PerfilDeAcesso.VENDEDOR);
                 } else if (perfil.equalsIgnoreCase("funcionario")) {
                     usuario.setPerfil(PerfilDeAcesso.FUNCIONARIO);
                 }else if (perfil.equalsIgnoreCase("gerente")) {

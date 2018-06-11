@@ -23,7 +23,9 @@ import javax.servlet.http.HttpSession;
  *
  * @author lucas
  */
-@WebFilter("/oi")
+@WebFilter(filterName = "FiltroCarrinho", urlPatterns={
+    "/admin/*"
+})
 public class AcessoAdministrativo implements Filter {
 
     @Override
@@ -37,6 +39,8 @@ public class AcessoAdministrativo implements Filter {
         Usuario usuario = (Usuario) sessaoUsuario.getAttribute("usuarioAutenticado");
 
         if (usuario != null & usuario.getPerfil().equals(PerfilDeAcesso.ADMINISTRADOR)) {
+            chain.doFilter(request, response);
+        } else if (usuario != null & usuario.getPerfil().equals(PerfilDeAcesso.SUPERADMIN)) {
             chain.doFilter(request, response);
         } else {
             ((HttpServletResponse) response).sendRedirect("../home.jsp");

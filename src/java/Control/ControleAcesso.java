@@ -33,7 +33,6 @@ public class ControleAcesso extends HttpServlet {
                 Usuario usuario = new Usuario();
                 usuario.setUsuario(request.getParameter("txtUsuario"));
                 usuario.setSenha(request.getParameter("txtSenha"));
-
                 UsuarioDAO loginUsuarioDAO = new UsuarioDAO();
                 Usuario usuarioAutenticado = loginUsuarioDAO.autenticaUsuario(usuario);
                 // se  o usuario existe no banco
@@ -47,7 +46,6 @@ public class ControleAcesso extends HttpServlet {
                     RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
                     request.setAttribute("msg", "Login e/ou senha incorreto(s)");
                     rd.forward(request, response);
-
                 }
 
             } else if (acao.equals("Sair")) {
