@@ -44,13 +44,7 @@
                           borderColor: 'rgba(255, 0, 0)',
                           backgroundColor: 'rgba(255, 0, 0, 0.8)',
                   },
-                       {// vlr podera ser trazido usando a data diferente?? 
-                          label:"Taxa de Vendidos - 2017",
-                          data:[4,8,10,10,10,30,33,30,34,40,48,10],//trazer do banco ""
-                          borderwidth:5,
-                          borderColor: 'rgb(204, 255, 255)',
-                          backgroundColor: 'rgba(204, 255, 255, 0.8)',
-                  }
+                                        }
               ]
             },
             options:{

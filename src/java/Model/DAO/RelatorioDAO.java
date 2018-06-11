@@ -36,7 +36,7 @@ public class RelatorioDAO {
         return null;
     }
 
-    public ArrayList<ArrayList<Double>> relatoriodepamaentos() {
+    public ArrayList<ArrayList<Double>> relatoriodepagamentos() {
         ArrayList<ArrayList<Double>> retorno = new ArrayList<>();
         ArrayList<Double> lista = new ArrayList<>();
         ArrayList<Double> lista2 = new ArrayList<>();
