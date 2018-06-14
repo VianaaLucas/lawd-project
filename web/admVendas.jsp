@@ -43,9 +43,7 @@
                                 <p class="relatorioEstoque button"> 
                                     <input type="submit" name="botao" id="botao" value="PAGAMENTOS" /></a> 
                                 </p>
-                                <p class="relatorioLucro button"> 
-                                    <input type="submit" name="botao" id="botao" value="LUCRO" /></a> 
-                                </p>
+                                
                             </form>
                             <h1>  </h1>
                             <p class="produtos button"> 

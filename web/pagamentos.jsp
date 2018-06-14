@@ -15,22 +15,6 @@
     </head>
     <body>
         <canvas class="line-chart"style="position: relative; height:40vh; width:50vw;background:rgba(147, 184, 189,0.2)"></canvas>
-            <%/*List<Integer> lista = new ArrayList<>();
-                 lista.add(next);
-                for (int i = 1; i <= 12; i++) {
-                 /  lista.add(i);
-
-               // }
-               // String teste = "";
-              //  for (int c = 1; c <= 12; c++) {
-
-               //     teste = teste + "," + lista.get(c);
-                }
-            */%>
-        
-
-                               
-                               
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
         <script>

@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class RelatorioDAO {
 
-    private static final String REPORTVENDAS = "";
+   
 
     public ArrayList<Double> relatoriodevendas() {
         ArrayList<Double> lista = new ArrayList<>();

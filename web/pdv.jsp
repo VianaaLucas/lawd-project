@@ -58,8 +58,8 @@
                             }
                         %>
                     </table>
-                    </div>
-                    <div class="uk-width-1-1 uk-position-bottom uk-margin-large-bottom uk-container uk-container-center">
+                </div>
+                <div class="uk-width-1-1 uk-position-bottom uk-margin-large-bottom uk-container uk-container-center">
                     <hr>
                     <form class="uk-form" action="ControleCarrinho" autocomplete="on" Method="POST">   					
                         <table class="uk-table uk-table-striped">
@@ -86,7 +86,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <input class="uk-button uk-button-large uk-button-success uk-width-1-1" type="submit" name="botao" value="FINALIZAR">
+                        <input class="uk-button uk-button-large uk-button-success uk-width-1-1" type="submit" name="botao" value="FINALIZAR">  
                         <input class="uk-button uk-button-large uk-button-danger uk-width-1-1" type="submit" name="botao" value="CANCELAR">
                     </form>
                 </div>
